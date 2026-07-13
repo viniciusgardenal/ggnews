@@ -5,7 +5,7 @@ import ArticleCard from '@/components/ArticleCard';
 export const revalidate = 60; // Refresh index page cache every 60s
 
 export default async function HomePage() {
-  let featuredArticle = null;
+  let featuredArticle: any = null;
   let latestArticles: any[] = [];
   let categories: any[] = [];
 

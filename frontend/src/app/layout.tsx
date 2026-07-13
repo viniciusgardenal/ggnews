@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
-import { Outfit } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './globals.css';
 import { api } from '@/lib/api';
 
-const outfit = Outfit({ 
+const nunito = Nunito({ 
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-outfit',
+  variable: '--font-nunito',
 });
 
 // Fetch settings once at the layout level to inject global SEO details
@@ -45,11 +45,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${outfit.variable} darkScroll`}>
+    <html lang="pt-BR" className={`${nunito.variable} darkScroll`}>
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#0b0c10] text-[#c5c6c7] antialiased">
+      <body className="min-h-screen flex flex-col antialiased">
         <Header />
         
         {/* Main Content Area */}

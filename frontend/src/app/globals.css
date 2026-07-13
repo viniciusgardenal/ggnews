@@ -4,29 +4,29 @@
 
 /* 1. Theme CSS Variable Declarations */
 :root {
-  --background: #fbf9f4;       /* Cozy warm cream background */
-  --foreground: #2d2621;       /* Deep coffee brown text */
+  --background: #fafaf9;       /* Standardized clean stone white */
+  --foreground: #1c1917;       /* Clean stone dark text */
   --card-bg: #ffffff;
-  --border-color: #e5ded6;
-  --accent: #d97706;           /* Warm cozy amber */
-  --accent-hover: #b45309;
+  --border-color: #e7e5e4;
+  --accent: #f97316;           /* Standard Orange */
+  --accent-hover: #ea580c;
 }
 
-/* Dark mode values override (Gamer Neon Cyan) */
+/* Dark mode values override (Cozy Warm Chocolate/Coffee Theme) */
 .dark {
-  --background: #0b0c10;
-  --foreground: #c5c6c7;
-  --card-bg: #0b0c10;
-  --border-color: #1f2833;
-  --accent: #66fcf1;
-  --accent-hover: #45a29e;
+  --background: #181614;       /* Cozy coffee/dark chocolate background (not pure black) */
+  --foreground: #e6e1dc;       /* Cozy warm white text */
+  --card-bg: #23201e;          /* Slightly lighter card background */
+  --border-color: #35302d;     /* Soft warm dark border */
+  --accent: #ff7e47;           /* Vibrant cozy warm orange */
+  --accent-hover: #f97316;
 }
 
 /* 2. Global Styles and Body */
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-nunito), 'Nunito', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -42,6 +42,9 @@ body {
 }
 .bg-\[\#0b0c10\]\/80 {
   background-color: color-mix(in srgb, var(--background) 80%, transparent) !important;
+}
+.bg-\[\#1f2833\] {
+  background-color: var(--border-color) !important;
 }
 
 .border-\[\#1f2833\]\/60,
@@ -74,32 +77,28 @@ body {
   color: var(--accent) !important;
 }
 
-/* 4. Cozy Light Mode Text Color Overrides (Sepia/Brown tones) */
+/* 4. Cozy Light Mode Text Color Overrides (Standardized Stone/Gray tones) */
 html:not(.dark) .text-slate-300 {
-  color: #4a4035 !important;
+  color: #d6d3d1 !important; /* stone-300 */
 }
 html:not(.dark) .text-slate-400 {
-  color: #615549 !important;
+  color: #78716c !important; /* stone-600 */
 }
 html:not(.dark) .text-slate-500 {
-  color: #7d6f60 !important;
+  color: #57534e !important; /* stone-700 */
 }
 html:not(.dark) .text-white {
-  color: #1c1713 !important;
+  color: #1c1917 !important; /* stone-900 */
 }
 html:not(.dark) .hover\:text-white:hover {
-  color: #1c1713 !important;
+  color: #1c1917 !important;
 }
 
 /* 5. Cozy Light Mode vs Dark Mode Custom Neon Borders */
 .neon-border {
-  box-shadow: 0 0 10px rgba(102, 252, 241, 0.1);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 15%, transparent);
   border: 1px solid var(--border-color);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html:not(.dark) .neon-border {
-  box-shadow: 0 0 10px rgba(217, 119, 6, 0.05);
 }
 
 .neon-border:hover {
@@ -107,7 +106,8 @@ html:not(.dark) .neon-border {
   border-color: var(--accent);
 }
 
-.neon-text-cyan {
+.neon-text-cyan,
+.neon-text-orange {
   text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 50%, transparent);
 }
 

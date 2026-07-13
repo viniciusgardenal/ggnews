@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { api } from '@/lib/api';
 
 export default async function Footer() {
-  let settings = {
+  let settings: any = {
     site_name: 'GG News',
     site_description: 'O seu portal definitivo de notícias gamer.',
     footer_links: [],
@@ -68,7 +68,7 @@ export default async function Footer() {
             <div>
               <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Links Úteis</h4>
               <ul className="space-y-2 text-sm">
-                {settings.footer_links.map((link, idx) => (
+                {settings.footer_links.map((link: any, idx: number) => (
                   <li key={idx}>
                     <Link href={link.url} className="hover:text-[#66fcf1] transition-colors duration-200">
                       {link.title}
@@ -84,7 +84,7 @@ export default async function Footer() {
             <div>
               <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Siga-nos</h4>
               <div className="flex gap-4">
-                {settings.social_links.map((social, idx) => (
+                {settings.social_links.map((social: any, idx: number) => (
                   <a
                     key={idx}
                     href={social.url}

@@ -3,8 +3,8 @@ import { api } from '@/lib/api';
 import ThemeToggle from '@/components/ThemeToggle';
 
 export default async function Header() {
-  let categories = [];
-  let settings = { site_name: 'GG News', logo_url: null };
+  let categories: any[] = [];
+  let settings: any = { site_name: 'GG News', logo_url: null };
 
   try {
     // Fetch categories and settings in parallel to reduce load time

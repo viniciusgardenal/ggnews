@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        outfit: ['var(--font-outfit)', 'sans-serif'],
+        outfit: ['var(--font-nunito)', 'sans-serif'],
+        nunito: ['var(--font-nunito)', 'sans-serif'],
       },
     },
   },
