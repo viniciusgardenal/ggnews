@@ -1,0 +1,188 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* 1. Theme CSS Variable Declarations */
+:root {
+  --background: #fbf9f4;       /* Cozy warm cream background */
+  --foreground: #2d2621;       /* Deep coffee brown text */
+  --card-bg: #ffffff;
+  --border-color: #e5ded6;
+  --accent: #d97706;           /* Warm cozy amber */
+  --accent-hover: #b45309;
+}
+
+/* Dark mode values override (Gamer Neon Cyan) */
+.dark {
+  --background: #0b0c10;
+  --foreground: #c5c6c7;
+  --card-bg: #0b0c10;
+  --border-color: #1f2833;
+  --accent: #66fcf1;
+  --accent-hover: #45a29e;
+}
+
+/* 2. Global Styles and Body */
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 3. Helper Overrides for Hardcoded Hex Colors */
+.bg-\[\#0b0c10\] {
+  background-color: var(--background) !important;
+}
+.bg-\[\#07080a\] {
+  background-color: var(--background) !important;
+}
+.bg-\[\#0b0c10\]\/80 {
+  background-color: color-mix(in srgb, var(--background) 80%, transparent) !important;
+}
+
+.border-\[\#1f2833\]\/60,
+.border-\[\#1f2833\]\/40,
+.border-\[\#1f2833\]\/30,
+.border-\[\#1f2833\]\/20,
+.border-\[\#1f2833\] {
+  border-color: var(--border-color) !important;
+}
+
+.text-\[\#c5c6c7\] {
+  color: var(--foreground) !important;
+}
+
+.text-\[\#66fcf1\] {
+  color: var(--accent) !important;
+}
+.hover\:text-\[\#66fcf1\]:hover {
+  color: var(--accent) !important;
+}
+
+.bg-\[\#66fcf1\] {
+  background-color: var(--accent) !important;
+}
+.hover\:bg-\[\#45a29e\]:hover {
+  background-color: var(--accent-hover) !important;
+}
+.group-hover\:text-\[\#66fcf1\]:hover,
+.group:hover .group-hover\:text-\[\#66fcf1\] {
+  color: var(--accent) !important;
+}
+
+/* 4. Cozy Light Mode Text Color Overrides (Sepia/Brown tones) */
+html:not(.dark) .text-slate-300 {
+  color: #4a4035 !important;
+}
+html:not(.dark) .text-slate-400 {
+  color: #615549 !important;
+}
+html:not(.dark) .text-slate-500 {
+  color: #7d6f60 !important;
+}
+html:not(.dark) .text-white {
+  color: #1c1713 !important;
+}
+html:not(.dark) .hover\:text-white:hover {
+  color: #1c1713 !important;
+}
+
+/* 5. Cozy Light Mode vs Dark Mode Custom Neon Borders */
+.neon-border {
+  box-shadow: 0 0 10px rgba(102, 252, 241, 0.1);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html:not(.dark) .neon-border {
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.05);
+}
+
+.neon-border:hover {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 30%, transparent), inset 0 0 5px color-mix(in srgb, var(--accent) 15%, transparent);
+  border-color: var(--accent);
+}
+
+.neon-text-cyan {
+  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Rich Text formatting custom support for article content */
+.prose-gamer {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--foreground);
+}
+
+.prose-gamer h1, 
+.prose-gamer h2, 
+.prose-gamer h3 {
+  color: var(--foreground);
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose-gamer h2 {
+  font-size: 1.75rem;
+  border-left: 4px solid var(--accent);
+  padding-left: 0.75rem;
+}
+
+.prose-gamer p {
+  margin-bottom: 1.5rem;
+}
+
+.prose-gamer a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.prose-gamer a:hover {
+  color: var(--accent-hover);
+}
+
+.prose-gamer blockquote {
+  border-left: 4px solid #f43f5e;
+  background-color: rgba(244, 63, 94, 0.05);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--foreground);
+  opacity: 0.8;
+  border-radius: 0 8px 8px 0;
+}
+
+.prose-gamer img {
+  border-radius: 12px;
+  margin: 2rem auto;
+  border: 1px solid var(--border-color);
+}
+
+.prose-gamer iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin: 2rem 0;
+}
