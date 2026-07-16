@@ -58,8 +58,12 @@ export default function AdminSettingsPage() {
   };
 
   const updateFooterLink = (index: number, field: keyof FooterLink, value: string) => {
-    const list = [...footerLinks];
-    list[index][field] = value;
+    const list = footerLinks.map((link, idx) => {
+      if (idx === index) {
+        return { ...link, [field]: value };
+      }
+      return link;
+    });
     setFooterLinks(list);
   };
 
@@ -73,8 +77,12 @@ export default function AdminSettingsPage() {
   };
 
   const updateSocialLink = (index: number, field: keyof SocialLink, value: string) => {
-    const list = [...socialLinks];
-    list[index][field] = value;
+    const list = socialLinks.map((social, idx) => {
+      if (idx === index) {
+        return { ...social, [field]: value };
+      }
+      return social;
+    });
     setSocialLinks(list);
   };
 
@@ -120,18 +128,18 @@ export default function AdminSettingsPage() {
     <div className="space-y-6">
       
       <div>
-        <h1 className="text-xl font-bold uppercase text-white tracking-wider">Configurações Gerais</h1>
+        <h1 className="text-xl font-bold uppercase text-zinc-900 dark:text-white tracking-wider">Configurações Gerais</h1>
         <p className="text-xs text-slate-500 mt-1">Ajuste a identidade visual, logo, redes sociais e rodapé do site.</p>
       </div>
 
       {success && (
-        <div className="rounded-lg bg-emerald-950/30 border border-emerald-900/50 p-4 text-sm text-emerald-400">
+        <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 p-4 text-sm text-emerald-700 dark:text-emerald-400">
           Configurações salvas e aplicadas com sucesso!
         </div>
       )}
 
       {error && (
-        <div className="rounded-lg bg-rose-950/30 border border-rose-900/50 p-4 text-sm text-rose-400">
+        <div className="rounded-lg bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 p-4 text-sm text-rose-700 dark:text-rose-400">
           {error}
         </div>
       )}
@@ -139,8 +147,8 @@ export default function AdminSettingsPage() {
       <form onSubmit={handleSubmit} className="space-y-8">
         
         {/* Identidade Visual */}
-        <section className="rounded-xl border border-[#1f2833]/40 bg-[#0b0c10] p-6 space-y-6">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-white border-b border-[#1f2833]/20 pb-3">Identidade Visual</h3>
+        <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-6 shadow-sm">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-850 dark:text-white border-b border-zinc-200 dark:border-zinc-800 pb-3">Identidade Visual</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -150,7 +158,7 @@ export default function AdminSettingsPage() {
                 required
                 value={siteName}
                 onChange={(e) => setSiteName(e.target.value)}
-                className="w-full rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2.5 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
               />
             </div>
 
@@ -160,7 +168,7 @@ export default function AdminSettingsPage() {
                 type="email"
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
-                className="w-full rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2.5 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
               />
             </div>
 
@@ -172,7 +180,7 @@ export default function AdminSettingsPage() {
                 onChange={(e) => setSiteDescription(e.target.value)}
                 rows={2}
                 maxLength={500}
-                className="w-full rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2.5 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
               />
             </div>
 
@@ -180,7 +188,7 @@ export default function AdminSettingsPage() {
               <label className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-2">Logo do Site</label>
               {logoUrl && (
                 <div className="mb-3 h-12 relative flex items-center">
-                  <img src={logoUrl} alt="Logo preview" className="h-full object-contain bg-slate-900/60 p-2 rounded border border-[#1f2833]" />
+                  <img src={logoUrl} alt="Logo preview" className="h-full object-contain bg-zinc-100 dark:bg-slate-900/60 p-2 rounded border border-zinc-200 dark:border-zinc-800" />
                 </div>
               )}
               <div className="flex gap-4">
@@ -194,7 +202,7 @@ export default function AdminSettingsPage() {
                 />
                 <label
                   htmlFor="logo-upload"
-                  className="py-2.5 px-4 border border-dashed border-[#1f2833] hover:border-[#66fcf1] hover:text-[#66fcf1] rounded text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors"
+                  className="py-2.5 px-4 border border-dashed border-zinc-200 dark:border-zinc-700 hover:border-[#66fcf1] hover:text-[#66fcf1] rounded text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider cursor-pointer transition-colors"
                 >
                   {uploading ? 'Enviando...' : 'Carregar Nova Logo'}
                 </label>
@@ -203,7 +211,7 @@ export default function AdminSettingsPage() {
                   value={logoUrl}
                   onChange={(e) => setLogoUrl(e.target.value)}
                   placeholder="URL direta para a logo..."
-                  className="flex-1 rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                 />
               </div>
             </div>
@@ -211,9 +219,9 @@ export default function AdminSettingsPage() {
         </section>
 
         {/* Footer Link Repeater */}
-        <section className="rounded-xl border border-[#1f2833]/40 bg-[#0b0c10] p-6 space-y-4">
-          <div className="flex items-center justify-between border-b border-[#1f2833]/20 pb-3">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Links do Rodapé</h3>
+        <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-4 shadow-sm">
+          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-850 dark:text-white">Links do Rodapé</h3>
             <button
               type="button"
               onClick={addFooterLink}
@@ -232,7 +240,7 @@ export default function AdminSettingsPage() {
                   placeholder="Título do Link (ex: Sobre Nós)"
                   value={link.title}
                   onChange={(e) => updateFooterLink(idx, 'title', e.target.value)}
-                  className="flex-1 rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                 />
                 <input
                   type="text"
@@ -240,7 +248,7 @@ export default function AdminSettingsPage() {
                   placeholder="Caminho/URL (ex: /sobre)"
                   value={link.url}
                   onChange={(e) => updateFooterLink(idx, 'url', e.target.value)}
-                  className="flex-1 rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                 />
                 <button
                   type="button"
@@ -260,9 +268,9 @@ export default function AdminSettingsPage() {
         </section>
 
         {/* Social Link Repeater */}
-        <section className="rounded-xl border border-[#1f2833]/40 bg-[#0b0c10] p-6 space-y-4">
-          <div className="flex items-center justify-between border-b border-[#1f2833]/20 pb-3">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Canais e Redes Sociais</h3>
+        <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-4 shadow-sm">
+          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-850 dark:text-white">Canais e Redes Sociais</h3>
             <button
               type="button"
               onClick={addSocialLink}
@@ -281,7 +289,7 @@ export default function AdminSettingsPage() {
                   placeholder="Plataforma (ex: twitter, youtube)"
                   value={social.platform}
                   onChange={(e) => updateSocialLink(idx, 'platform', e.target.value)}
-                  className="flex-1 rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                 />
                 <input
                   type="url"
@@ -289,7 +297,7 @@ export default function AdminSettingsPage() {
                   placeholder="URL Completa (ex: https://youtube.com/...)"
                   value={social.url}
                   onChange={(e) => updateSocialLink(idx, 'url', e.target.value)}
-                  className="flex-1 rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                 />
                 <button
                   type="button"
@@ -313,7 +321,7 @@ export default function AdminSettingsPage() {
           <button
             type="submit"
             disabled={saving || uploading}
-            className="px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-black bg-[#66fcf1] hover:bg-[#45a29e] rounded transition-all disabled:opacity-50 shadow-[0_0_15px_rgba(102,252,241,0.15)]"
+            className="px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white bg-[#ea580c] dark:bg-[#ff8838] hover:bg-[#c2410c] dark:hover:bg-[#e06818] rounded transition-all disabled:opacity-50 shadow-sm"
           >
             {saving ? 'Salvando...' : 'Salvar Alterações'}
           </button>

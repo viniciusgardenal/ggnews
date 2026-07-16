@@ -93,7 +93,7 @@ export default function AdminCategoriesPage() {
     <div className="space-y-8">
       
       <div>
-        <h1 className="text-xl font-bold uppercase text-white tracking-wider">Gerenciador de Categorias</h1>
+        <h1 className="text-xl font-bold uppercase text-zinc-900 dark:text-white tracking-wider">Gerenciador de Categorias</h1>
         <p className="text-xs text-slate-500 mt-1">Gerencie os tópicos principais e os links de navegação do cabeçalho.</p>
       </div>
 
@@ -101,8 +101,8 @@ export default function AdminCategoriesPage() {
         
         {/* Left Side: Create form card */}
         <div className="lg:col-span-4">
-          <div className="rounded-xl border border-[#1f2833]/40 bg-[#0b0c10] p-6 space-y-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Criar Nova Categoria</h3>
+          <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-6 shadow-sm">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-850 dark:text-white">Criar Nova Categoria</h3>
             
             <form onSubmit={handleCreateSubmit} className="space-y-4">
               <div>
@@ -116,7 +116,7 @@ export default function AdminCategoriesPage() {
                     // Autofill slug format reactive
                     setNewSlug(e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''));
                   }}
-                  className="w-full rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2.5 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                   placeholder="Ex: Reviews"
                 />
               </div>
@@ -127,7 +127,7 @@ export default function AdminCategoriesPage() {
                   type="text"
                   value={newSlug}
                   onChange={(e) => setNewSlug(e.target.value)}
-                  className="w-full rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2.5 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                   placeholder="reviews"
                 />
               </div>
@@ -135,7 +135,7 @@ export default function AdminCategoriesPage() {
               <button
                 type="submit"
                 disabled={creating}
-                className="w-full py-3 text-xs font-bold uppercase tracking-widest text-black bg-[#66fcf1] hover:bg-[#45a29e] rounded transition-all disabled:opacity-50"
+                className="w-full py-3 text-xs font-bold uppercase tracking-widest text-white bg-[#ea580c] dark:bg-[#ff8838] hover:bg-[#c2410c] dark:hover:bg-[#e06818] rounded transition-all disabled:opacity-50"
               >
                 {creating ? 'Criando...' : 'Adicionar Categoria'}
               </button>
@@ -145,9 +145,9 @@ export default function AdminCategoriesPage() {
 
         {/* Right Side: List and edit table */}
         <div className="lg:col-span-8">
-          <div className="rounded-xl border border-[#1f2833]/40 bg-[#0b0c10] overflow-hidden">
-            <div className="px-6 py-5 border-b border-[#1f2833]/30">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-white">Categorias Cadastradas</h3>
+          <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] overflow-hidden shadow-sm">
+            <div className="px-6 py-5 border-b border-zinc-200 dark:border-zinc-800">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-850 dark:text-white">Categorias Cadastradas</h3>
             </div>
 
             {loading ? (
@@ -160,16 +160,16 @@ export default function AdminCategoriesPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b border-[#1f2833]/20 bg-slate-900/40 text-xs font-bold uppercase tracking-wider text-slate-400">
+                    <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       <th className="px-6 py-4">Nome da Categoria</th>
                       <th className="px-6 py-4">Slug da URL</th>
                       <th className="px-6 py-4">Artigos Associados</th>
                       <th className="px-6 py-4 text-right">Ações</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#1f2833]/20">
+                  <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/50">
                     {categories.map((cat) => (
-                      <tr key={cat.id} className="hover:bg-slate-900/10 transition-colors">
+                      <tr key={cat.id} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-900/20 transition-colors">
                         {editingId === cat.id ? (
                           // Editing mode inline
                           <td colSpan={4} className="px-6 py-4">
@@ -179,26 +179,26 @@ export default function AdminCategoriesPage() {
                                 required
                                 value={editName}
                                 onChange={(e) => setEditName(e.target.value)}
-                                className="rounded border border-[#1f2833]/60 bg-[#0b0c10] px-3 py-1.5 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                                className="rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                               />
                               <input
                                 type="text"
                                 required
                                 value={editSlug}
                                 onChange={(e) => setEditSlug(e.target.value)}
-                                className="rounded border border-[#1f2833]/60 bg-[#0b0c10] px-3 py-1.5 text-xs text-white focus:border-[#66fcf1] focus:outline-none"
+                                className="rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
                               />
                               <button
                                 type="submit"
                                 disabled={updating}
-                                className="px-3.5 py-1.5 rounded bg-[#66fcf1] text-black text-xs font-bold uppercase tracking-wider"
+                                className="px-3.5 py-1.5 rounded bg-[#ea580c] dark:bg-[#ff8838] text-white text-xs font-bold uppercase tracking-wider"
                               >
                                 Salvar
                               </button>
                               <button
                                 type="button"
                                 onClick={() => setEditingId(null)}
-                                className="px-3.5 py-1.5 rounded border border-[#1f2833] text-xs font-bold uppercase tracking-wider hover:text-white"
+                                className="px-3.5 py-1.5 rounded border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider hover:text-zinc-900 dark:hover:text-white"
                               >
                                 Cancelar
                               </button>
@@ -207,9 +207,9 @@ export default function AdminCategoriesPage() {
                         ) : (
                           // Standard viewing row
                           <>
-                            <td className="px-6 py-4 font-bold text-white">{cat.name}</td>
-                            <td className="px-6 py-4 text-slate-400">/{cat.slug}</td>
-                            <td className="px-6 py-4 text-slate-400">{cat.articles_count || 0}</td>
+                            <td className="px-6 py-4 font-bold text-zinc-900 dark:text-white">{cat.name}</td>
+                            <td className="px-6 py-4 text-slate-500 dark:text-slate-400">/{cat.slug}</td>
+                            <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{cat.articles_count || 0}</td>
                             <td className="px-6 py-4 text-right space-x-3">
                               <button
                                 onClick={() => handleEditClick(cat)}

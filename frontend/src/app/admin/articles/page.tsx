@@ -87,7 +87,7 @@ export default function AdminArticlesPage() {
       </div>
 
       {/* Filters bar */}
-      <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 border border-[#1f2833]/30 bg-[#0b0c10]/40 rounded-xl">
+      <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10]/40 rounded-xl shadow-sm">
         {/* Search */}
         <div className="sm:col-span-2 relative">
           <input
@@ -95,9 +95,9 @@ export default function AdminArticlesPage() {
             placeholder="Pesquisar por título ou resumo..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-[#66fcf1] focus:outline-none focus:ring-1 focus:ring-[#66fcf1]"
+            className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-650 focus:border-[#66fcf1] focus:outline-none focus:ring-1 focus:ring-[#66fcf1]"
           />
-          <button type="submit" className="absolute right-3 top-3 text-slate-500 hover:text-white">
+          <button type="submit" className="absolute right-3 top-3 text-slate-500 hover:text-zinc-800 dark:hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.604 10.604z" />
             </svg>
@@ -112,7 +112,7 @@ export default function AdminArticlesPage() {
               setCategoryFilter(e.target.value);
               setPage(1);
             }}
-            className="w-full rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2.5 text-xs text-slate-400 focus:border-[#66fcf1] focus:outline-none focus:ring-1 focus:ring-[#66fcf1]"
+            className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-700 dark:text-zinc-300 focus:border-[#66fcf1] focus:outline-none focus:ring-1 focus:ring-[#66fcf1]"
           >
             <option value="">Todas as Categorias</option>
             {categories.map((cat) => (
@@ -129,7 +129,7 @@ export default function AdminArticlesPage() {
               setStatusFilter(e.target.value);
               setPage(1);
             }}
-            className="w-full rounded border border-[#1f2833]/60 bg-[#0b0c10] px-4 py-2.5 text-xs text-slate-400 focus:border-[#66fcf1] focus:outline-none focus:ring-1 focus:ring-[#66fcf1]"
+            className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-700 dark:text-zinc-300 focus:border-[#66fcf1] focus:outline-none focus:ring-1 focus:ring-[#66fcf1]"
           >
             <option value="">Todos os Status</option>
             <option value="published">Publicado</option>
@@ -139,7 +139,7 @@ export default function AdminArticlesPage() {
       </form>
 
       {/* Grid listing */}
-      <div className="rounded-xl border border-[#1f2833]/40 bg-[#0b0c10] overflow-hidden">
+      <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] overflow-hidden shadow-sm">
         {loading ? (
           <div className="flex h-48 items-center justify-center text-slate-500 text-sm font-bold tracking-widest uppercase">
             Carregando artigos...
@@ -150,7 +150,7 @@ export default function AdminArticlesPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-[#1f2833]/20 bg-slate-900/40 text-xs font-bold uppercase tracking-wider text-slate-400">
+                <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   <th className="px-6 py-4">Matéria</th>
                   <th className="px-6 py-4">Categoria</th>
                   <th className="px-6 py-4">Autor</th>
@@ -158,29 +158,29 @@ export default function AdminArticlesPage() {
                   <th className="px-6 py-4 text-right">Ações</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1f2833]/20">
+              <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/50">
                 {articles.length > 0 ? (
                   articles.map((article) => (
-                    <tr key={article.id} className="hover:bg-slate-900/20 transition-colors">
+                    <tr key={article.id} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-900/20 transition-colors">
                       <td className="px-6 py-4 flex items-center gap-3">
                         <img
                           src={article.cover_image || '/images/placeholder-game.jpg'}
                           alt={article.title}
-                          className="h-10 w-16 object-cover rounded bg-[#1f2833]"
+                          className="h-10 w-16 object-cover rounded bg-zinc-100 dark:bg-zinc-800"
                         />
                         <div>
-                          <p className="font-bold text-white max-w-sm truncate">{article.title}</p>
+                          <p className="font-bold text-zinc-900 dark:text-white max-w-sm truncate">{article.title}</p>
                           <p className="text-[10px] text-slate-500 mt-0.5 truncate max-w-sm">{article.excerpt}</p>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-slate-400">{article.category.name}</td>
-                      <td className="px-6 py-4 text-slate-400">{article.author.name}</td>
+                      <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{article.category.name}</td>
+                      <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{article.author.name}</td>
                       <td className="px-6 py-4">
                         <span
                           className={`inline-block rounded px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${
                             article.status === 'published'
-                              ? 'bg-emerald-950/30 text-emerald-400 border border-emerald-900/50'
-                              : 'bg-amber-950/30 text-amber-400 border border-amber-900/50'
+                              ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50'
+                              : 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900/50'
                           }`}
                         >
                           {article.status === 'published' ? 'Publicado' : 'Rascunho'}
@@ -225,14 +225,14 @@ export default function AdminArticlesPage() {
             <button
               disabled={page === 1}
               onClick={() => setPage(page - 1)}
-              className="px-3.5 py-2 text-xs font-bold uppercase tracking-wider rounded border border-[#1f2833] hover:border-[#66fcf1] hover:text-[#66fcf1] transition-all disabled:opacity-50"
+              className="px-3.5 py-2 text-xs font-bold uppercase tracking-wider rounded border border-zinc-200 dark:border-zinc-700 hover:border-[#66fcf1] hover:text-[#66fcf1] text-zinc-700 dark:text-zinc-300 disabled:opacity-50 disabled:hover:text-zinc-750 transition-all"
             >
               Anterior
             </button>
             <button
               disabled={page === lastPage}
               onClick={() => setPage(page + 1)}
-              className="px-3.5 py-2 text-xs font-bold uppercase tracking-wider rounded border border-[#1f2833] hover:border-[#66fcf1] hover:text-[#66fcf1] transition-all disabled:opacity-50"
+              className="px-3.5 py-2 text-xs font-bold uppercase tracking-wider rounded border border-zinc-200 dark:border-zinc-700 hover:border-[#66fcf1] hover:text-[#66fcf1] text-zinc-700 dark:text-zinc-300 disabled:opacity-50 disabled:hover:text-zinc-750 transition-all"
             >
               Próxima
             </button>

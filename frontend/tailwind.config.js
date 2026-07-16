@@ -8,8 +8,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        outfit: ['var(--font-nunito)', 'sans-serif'],
-        nunito: ['var(--font-nunito)', 'sans-serif'],
+        sans: ['var(--font-space-grotesk)', 'sans-serif'],
+        mono: ['var(--font-space-mono)', 'monospace'],
+        outfit: ['var(--font-space-grotesk)', 'sans-serif'],
+        nunito: ['var(--font-space-grotesk)', 'sans-serif'],
       },
     },
   },

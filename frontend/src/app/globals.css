@@ -4,29 +4,29 @@
 
 /* 1. Theme CSS Variable Declarations */
 :root {
-  --background: #fafaf9;       /* Standardized clean stone white */
-  --foreground: #1c1917;       /* Clean stone dark text */
+  --background: #ffffff;       /* Pure white */
+  --foreground: #09090b;       /* Zinc-950 deep dark text */
   --card-bg: #ffffff;
-  --border-color: #e7e5e4;
-  --accent: #f97316;           /* Standard Orange */
-  --accent-hover: #ea580c;
+  --border-color: #e4e4e7;     /* Clean zinc-200 border */
+  --accent: #ff5e00;           /* Vibrant 80s Arcade Orange */
+  --accent-hover: #d03c00;
 }
 
-/* Dark mode values override (Cozy Warm Chocolate/Coffee Theme) */
+/* Dark mode values override (80s Retro Arcade/Terminal Theme) */
 .dark {
-  --background: #181614;       /* Cozy coffee/dark chocolate background (not pure black) */
-  --foreground: #e6e1dc;       /* Cozy warm white text */
-  --card-bg: #23201e;          /* Slightly lighter card background */
-  --border-color: #35302d;     /* Soft warm dark border */
-  --accent: #ff7e47;           /* Vibrant cozy warm orange */
-  --accent-hover: #f97316;
+  --background: #121214;       /* Deep warm dark carbon */
+  --foreground: #e4e4e7;       /* Zinc-200 */
+  --card-bg: #1c1c1f;          /* Slightly lighter carbon */
+  --border-color: #2e2e33;     /* Zinc-800 border */
+  --accent: #ff8838;           /* Retro Terminal Amber-Orange */
+  --accent-hover: #e06818;
 }
 
 /* 2. Global Styles and Body */
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-nunito), 'Nunito', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -77,6 +77,46 @@ body {
   color: var(--accent) !important;
 }
 
+.border-\[\#66fcf1\] {
+  border-color: var(--accent) !important;
+}
+.hover\:border-\[\#66fcf1\]:hover {
+  border-color: var(--accent) !important;
+}
+.focus\:border-\[\#66fcf1\]:focus {
+  border-color: var(--accent) !important;
+}
+.focus\:ring-\[\#66fcf1\]:focus {
+  --tw-ring-color: var(--accent) !important;
+}
+.border-\[\#66fcf1\]\/50 {
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent) !important;
+}
+.border-\[\#66fcf1\]\/30 {
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+}
+.border-t-\[\#66fcf1\] {
+  border-top-color: var(--accent) !important;
+}
+.bg-\[\#66fcf1\]\/5 {
+  background-color: color-mix(in srgb, var(--accent) 5%, transparent) !important;
+}
+.bg-\[\#66fcf1\]\/10 {
+  background-color: color-mix(in srgb, var(--accent) 10%, transparent) !important;
+}
+.bg-\[\#66fcf1\]\/20 {
+  background-color: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+}
+.shadow-\[0_0_15px_rgba\(102\,252\,241\,0\.15\)\] {
+  box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 15%, transparent) !important;
+}
+.shadow-\[0_0_15px_rgba\(102\,252\,241\,0\.2\)\] {
+  box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 20%, transparent) !important;
+}
+.hover\:shadow-\[0_0_25px_rgba\(102\,252\,241\,0\.4\)\]:hover {
+  box-shadow: 0 0 25px color-mix(in srgb, var(--accent) 40%, transparent) !important;
+}
+
 /* 4. Cozy Light Mode Text Color Overrides (Standardized Stone/Gray tones) */
 html:not(.dark) .text-slate-300 {
   color: #d6d3d1 !important; /* stone-300 */
@@ -96,19 +136,19 @@ html:not(.dark) .hover\:text-white:hover {
 
 /* 5. Cozy Light Mode vs Dark Mode Custom Neon Borders */
 .neon-border {
-  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 15%, transparent);
   border: 1px solid var(--border-color);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .neon-border:hover {
-  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 30%, transparent), inset 0 0 5px color-mix(in srgb, var(--accent) 15%, transparent);
   border-color: var(--accent);
+  box-shadow: 2px 2px 0px var(--accent); /* Retro hard offset shadow */
 }
 
 .neon-text-cyan,
 .neon-text-orange {
-  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 50%, transparent);
+  text-shadow: none; /* remove glow to keep it professional and sober */
 }
 
 /* Scrollbars */
