@@ -36,11 +36,11 @@ export class SettingsService {
     }, {} as { [key: string]: string | null });
 
     return {
-      site_name: settingsMap['site_name'] || 'GG News',
+      site_name: settingsMap['site_name'] || 'Core Loop News',
       site_description:
         settingsMap['site_description'] || 'O seu portal definitivo de notícias gamer.',
       logo_url: settingsMap['logo_url'] || null,
-      contact_email: settingsMap['contact_email'] || 'contato@ggnews.com',
+      contact_email: settingsMap['contact_email'] || 'contato@coreloopnews.com',
       footer_links: this.parseSettingValue(settingsMap['footer_links'], [
         { title: 'Sobre Nós', url: '/sobre' },
         { title: 'Contato', url: '/contato' },

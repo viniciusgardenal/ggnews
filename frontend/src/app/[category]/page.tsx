@@ -17,11 +17,11 @@ export async function generateMetadata({ params }: CategoryPageProps) {
     const data = await api.getCategoryBySlug(params.category);
     return {
       title: `${data.category.name} | Notícias de Games`,
-      description: `Confira todas as últimas notícias, reviews e informações sobre ${data.category.name} no GG News.`,
+      description: `Confira todas as últimas notícias, reviews e informações sobre ${data.category.name} no Core Loop News.`,
     };
   } catch (error) {
     return {
-      title: 'Categoria | GG News',
+      title: 'Categoria | Core Loop News',
     };
   }
 }

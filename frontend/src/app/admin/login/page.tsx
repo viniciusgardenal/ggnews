@@ -8,7 +8,7 @@ export default function AdminLoginPage() {
   const router = useRouter();
   
   // Pre-fill default testing credentials
-  const [email, setEmail] = useState('admin@ggnews.com');
+  const [email, setEmail] = useState('admin@coreloopnews.com');
   const [password, setPassword] = useState('password123');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
   };
 
   const handleFillDemo = () => {
-    setEmail('admin@ggnews.com');
+    setEmail('admin@coreloopnews.com');
     setPassword('password123');
   };
 
@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
         {/* Header branding */}
         <div className="text-center mb-6">
           <span className="text-3xl font-black tracking-widest uppercase text-white">
-            GG<span className="text-[#66fcf1]">ADMIN</span>
+            CLN<span className="text-[#66fcf1]">ADMIN</span>
           </span>
           <p className="mt-2 text-xs text-slate-500 uppercase tracking-widest">Acesso restrito a autores</p>
         </div>
@@ -76,7 +76,7 @@ export default function AdminLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded border border-[#1f2833] bg-[#0b0c10] px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-[#66fcf1] focus:outline-none focus:ring-1 focus:ring-[#66fcf1] transition-all"
-              placeholder="seuemail@ggnews.com"
+              placeholder="seuemail@coreloopnews.com"
             />
           </div>
 

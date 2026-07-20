@@ -97,7 +97,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex items-center gap-8">
               <Link href="/admin/dashboard" className="flex items-center gap-2 group">
                 <span className="text-lg font-black uppercase text-zinc-900 dark:text-white tracking-widest">
-                  GG<span className="text-[#66fcf1]">ADMIN</span>
+                  CLN<span className="text-[#66fcf1]">ADMIN</span>
                 </span>
               </Link>
 
@@ -111,7 +111,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                       href={item.path}
                       className={`px-4 py-2 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
                         isActive
-                          ? 'bg-[#66fcf1]/10 text-[#66fcf1]'
+                           ? 'bg-[#66fcf1]/10 text-[#66fcf1]'
                           : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900/60 hover:text-zinc-900 dark:hover:text-white'
                       }`}
                     >
@@ -185,7 +185,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Simple footer for info */}
       <footer className="py-4 border-t border-zinc-200 dark:border-zinc-800/50 bg-white/50 dark:bg-[#0b0c10]/20 text-center text-[10px] text-zinc-400 uppercase tracking-widest">
-        GG NEWS ADMIN • Ambiente Seguro
+        CORE LOOP NEWS ADMIN • Ambiente Seguro
       </footer>
       
     </div>

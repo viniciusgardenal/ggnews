@@ -4,7 +4,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 
 export default async function Header() {
   let categories: any[] = [];
-  let settings: any = { site_name: 'GG News', logo_url: null };
+  let settings: any = { site_name: 'Core Loop News', logo_url: null };
 
   try {
     // Fetch categories and settings in parallel to reduce load time
@@ -33,7 +33,7 @@ export default async function Header() {
           ) : (
             <div className="relative">
               <span className="text-2xl font-black tracking-wider uppercase text-white">
-                GG<span className="text-[#66fcf1] transition-colors group-hover:text-rose-500">NEWS</span>
+                CORE<span className="text-[#66fcf1] transition-colors group-hover:text-rose-500">LOOP</span>
               </span>
               <span className="absolute -bottom-1 left-0 h-0.5 w-full scale-x-0 bg-[#66fcf1] transition-transform duration-300 group-hover:scale-x-100 origin-left" />
             </div>

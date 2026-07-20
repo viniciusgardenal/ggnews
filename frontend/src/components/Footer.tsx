@@ -3,7 +3,7 @@ import { api } from '@/lib/api';
 
 export default async function Footer() {
   let settings: any = {
-    site_name: 'GG News',
+    site_name: 'Core Loop News',
     site_description: 'O seu portal definitivo de notícias gamer.',
     footer_links: [],
     social_links: []
@@ -56,7 +56,7 @@ export default async function Footer() {
           {/* Logo & Description */}
           <div>
             <span className="text-xl font-black uppercase text-white tracking-widest">
-              GG<span className="text-[#66fcf1]">NEWS</span>
+              CORE<span className="text-[#66fcf1]">LOOP</span>
             </span>
             <p className="mt-3 text-sm leading-relaxed text-slate-500">
               {settings.site_description}

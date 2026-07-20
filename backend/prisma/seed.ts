@@ -9,10 +9,10 @@ async function main() {
   // 1. Create Admin user
   const hashedPassword = await bcrypt.hash('password123', 10);
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@ggnews.com' },
+    where: { email: 'admin@coreloopnews.com' },
     update: {},
     create: {
-      email: 'admin@ggnews.com',
+      email: 'admin@coreloopnews.com',
       name: 'Alex Mercer',
       password: hashedPassword,
       role: 'ADMIN', // Handled as string for SQLite compatibility
@@ -40,18 +40,18 @@ async function main() {
 
   // 3. Create Settings
   const settings = [
-    { key: 'site_name', value: 'GG News' },
+    { key: 'site_name', value: 'Core Loop News' },
     {
       key: 'site_description',
       value: 'O seu portal definitivo de notícias, análises e coberturas de eSports do mundo dos games.',
     },
-    { key: 'contact_email', value: 'contato@ggnews.com' },
+    { key: 'contact_email', value: 'contato@coreloopnews.com' },
     {
       key: 'social_links',
       value: JSON.stringify([
-        { platform: 'twitter', url: 'https://x.com/ggnews' },
-        { platform: 'youtube', url: 'https://youtube.com/ggnews' },
-        { platform: 'instagram', url: 'https://instagram.com/ggnews' },
+        { platform: 'twitter', url: 'https://x.com/coreloopnews' },
+        { platform: 'youtube', url: 'https://youtube.com/coreloopnews' },
+        { platform: 'instagram', url: 'https://instagram.com/coreloopnews' },
       ]),
     },
     {
@@ -107,7 +107,9 @@ async function main() {
   // Elden Ring (Reviews)
   await prisma.article.upsert({
     where: { slug: 'elden-ring-shadow-erdtree-review' },
-    update: {},
+    update: {
+      coverImage: 'https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1200&auto=format&fit=crop'
+    },
     create: {
       title: 'Elden Ring: Shadow of the Erdtree - Vale a pena jogar a nova DLC?',
       slug: 'elden-ring-shadow-erdtree-review',
@@ -116,12 +118,12 @@ async function main() {
         <h2>A Dificuldade Redefinida</h2>
         <p>Shadow of the Erdtree não é apenas um add-on. É uma expansão colossal que rivaliza com o tamanho de muitos jogos completos. A FromSoftware entrega um level design espetacular e lutas de chefes que testarão a sanidade até dos jogadores mais veteranos.</p>
         
-        <blockquote>"Uma obra-prima de design de níveis verticais e ambientação sombria."</blockquote>
+        <blockquote>"Uma obra-prima de design de níveis verticais and ambientação sombria."</blockquote>
 
         <h2>Novas Armas e Estilos de Luta</h2>
         <p>Com mais de 8 novas categorias de armas, incluindo garras de artes marciais e frascos de perfume explosivos, o combate ganhou uma variedade nunca antes vista no game original.</p>
       `,
-      coverImage: 'https://images.unsplash.com/photo-1612287230202-1bf1d85d1bdf?q=80&w=1200&auto=format&fit=crop',
+      coverImage: 'https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1200&auto=format&fit=crop',
       status: 'PUBLISHED',
       publishedAt: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       categoryId: categoryMap['reviews'].id,

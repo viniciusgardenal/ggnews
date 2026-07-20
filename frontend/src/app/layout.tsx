@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
   } catch (error) {
     console.error('Failed to generate page metadata:', error);
     return {
-      title: 'GG News | Portal de Games',
+      title: 'Core Loop News | Portal de Games',
       description: 'O seu portal definitivo de notícias gamer.',
     };
   }

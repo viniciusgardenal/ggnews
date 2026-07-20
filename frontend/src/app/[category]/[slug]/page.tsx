@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     };
   } catch (error) {
     return {
-      title: 'Artigo | GG News',
+      title: 'Artigo | Core Loop News',
     };
   }
 }
@@ -100,7 +100,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
             <div>
               <p className="text-sm font-bold text-white leading-none">{article.author.name}</p>
-              <p className="text-xs text-slate-500 mt-1">Autor GG News</p>
+              <p className="text-xs text-slate-500 mt-1">Autor Core Loop News</p>
             </div>
           </div>
 
