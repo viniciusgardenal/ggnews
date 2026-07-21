@@ -104,26 +104,37 @@ async function main() {
     },
   });
 
-  // Elden Ring (Reviews)
+  // Assassin's Creed Black Flag Resynced (Reviews)
   await prisma.article.upsert({
-    where: { slug: 'elden-ring-shadow-erdtree-review' },
+    where: { slug: 'assassins-creed-black-flag-resynced-review' },
     update: {
-      coverImage: 'https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1200&auto=format&fit=crop'
+      title: 'Assassin\'s Creed IV: Black Flag Resynced - Vale a pena jogar a nova versão remasterizada?',
+      excerpt: 'Navegamos novamente pelas águas do Caribe nesta versão remasterizada não oficial de um dos maiores clássicos da franquia.',
+      content: `
+        <h2>O Retorno dos Piratas aos Sete Mares</h2>
+        <p>Assassin's Creed IV: Black Flag é amplamente considerado um dos pontos altos da franquia da Ubisoft. O projeto de remasterização não oficial 'Resynced' eleva o clássico de 2013 ao padrão moderno de consoles com iluminação global Ray Tracing, texturas 4K remasterizadas e físicas de navegação aprimoradas.</p>
+        
+        <blockquote>"A derradeira versão do simulador de pirataria que conquistou o mundo, agora com fidelidade gráfica de nova geração."</blockquote>
+
+        <h2>Exploração Naval e Combates Épicos</h2>
+        <p>Nenhuma mecânica define melhor o jogo do que o comando do navio Gralha (Jackdaw). As batalhas navais contra galeões espanhóis e lendários navios de guerra continuam dinâmicas, desafiadoras e visualmente espetaculares com a nova renderização de tempestades e física de ondas realistas.</p>
+      `,
+      coverImage: 'https://cdn.akamai.steamstatic.com/steam/apps/242050/header.jpg'
     },
     create: {
-      title: 'Elden Ring: Shadow of the Erdtree - Vale a pena jogar a nova DLC?',
-      slug: 'elden-ring-shadow-erdtree-review',
-      excerpt: 'Uma jornada impiedosa pela Terra das Sombras. Confira nossa análise detalhada da expansão de Elden Ring.',
+      title: 'Assassin\'s Creed IV: Black Flag Resynced - Vale a pena jogar a nova versão remasterizada?',
+      slug: 'assassins-creed-black-flag-resynced-review',
+      excerpt: 'Navegamos novamente pelas águas do Caribe nesta versão remasterizada não oficial de um dos maiores clássicos da franquia.',
       content: `
-        <h2>A Dificuldade Redefinida</h2>
-        <p>Shadow of the Erdtree não é apenas um add-on. É uma expansão colossal que rivaliza com o tamanho de muitos jogos completos. A FromSoftware entrega um level design espetacular e lutas de chefes que testarão a sanidade até dos jogadores mais veteranos.</p>
+        <h2>O Retorno dos Piratas aos Sete Mares</h2>
+        <p>Assassin's Creed IV: Black Flag é amplamente considerado um dos pontos altos da franquia da Ubisoft. O projeto de remasterização não oficial 'Resynced' eleva o clássico de 2013 ao padrão moderno de consoles com iluminação global Ray Tracing, texturas 4K remasterizadas e físicas de navegação aprimoradas.</p>
         
-        <blockquote>"Uma obra-prima de design de níveis verticais and ambientação sombria."</blockquote>
+        <blockquote>"A derradeira versão do simulador de pirataria que conquistou o mundo, agora com fidelidade gráfica de nova geração."</blockquote>
 
-        <h2>Novas Armas e Estilos de Luta</h2>
-        <p>Com mais de 8 novas categorias de armas, incluindo garras de artes marciais e frascos de perfume explosivos, o combate ganhou uma variedade nunca antes vista no game original.</p>
+        <h2>Exploração Naval e Combates Épicos</h2>
+        <p>Nenhuma mecânica define melhor o jogo do que o comando do navio Gralha (Jackdaw). As batalhas navais contra galeões espanhóis e lendários navios de guerra continuam dinâmicas, desafiadoras e visualmente espetaculares com a nova renderização de tempestades e física de ondas realistas.</p>
       `,
-      coverImage: 'https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1200&auto=format&fit=crop',
+      coverImage: 'https://cdn.akamai.steamstatic.com/steam/apps/242050/header.jpg',
       status: 'PUBLISHED',
       publishedAt: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       categoryId: categoryMap['reviews'].id,
