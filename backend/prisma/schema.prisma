@@ -38,6 +38,7 @@ model Article {
   excerpt     String    
   content     String    
   coverImage  String?   @map("cover_image")
+  viewsCount  Int       @default(0) @map("views_count")
   status      String    @default("DRAFT") // Can be "DRAFT" or "PUBLISHED"
   publishedAt DateTime? @map("published_at")
   

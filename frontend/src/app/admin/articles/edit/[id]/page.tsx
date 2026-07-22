@@ -177,7 +177,52 @@ export default function EditArticlePage({ params }: EditArticlePageProps) {
 
             {/* Content */}
             <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400 mb-2">Conteúdo do Artigo (Rich HTML/Markdown)</label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400">Conteúdo do Artigo (Rich HTML/Markdown)</label>
+                
+                {/* Quick Helper Toolbar */}
+                <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+                  <button
+                    type="button"
+                    onClick={() => setContent((prev) => prev + '\n<h2>Subtítulo Aqui</h2>\n')}
+                    className="px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold"
+                    title="Inserir Subtítulo"
+                  >
+                    + H2
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setContent((prev) => prev + '\n<p>Texto do seu parágrafo aqui...</p>\n')}
+                    className="px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold"
+                    title="Inserir Parágrafo"
+                  >
+                    + Parágrafo
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setContent((prev) => prev + '\n<blockquote>"Sua citação marcante aqui"</blockquote>\n')}
+                    className="px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold"
+                    title="Inserir Citação"
+                  >
+                    + Citação
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const url = prompt('URL do Vídeo do YouTube (ex: https://www.youtube.com/watch?v=VIDEO_ID):');
+                      if (url) {
+                        const videoId = url.includes('v=') ? url.split('v=')[1]?.split('&')[0] : url.split('/').pop();
+                        setContent((prev) => prev + `\n<div class="video-container"><iframe src="https://www.youtube.com/embed/${videoId}" title="Vídeo YouTube" frameborder="0" allowfullscreen></iframe></div>\n`);
+                      }
+                    }}
+                    className="px-2 py-1 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 font-bold hover:bg-rose-200"
+                    title="Inserir Vídeo do YouTube"
+                  >
+                    + Vídeo YouTube
+                  </button>
+                </div>
+              </div>
+
               <textarea
                 required
                 value={content}

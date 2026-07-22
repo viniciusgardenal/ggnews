@@ -66,6 +66,7 @@ export class ArticlesService {
       data: articles.map((art) => ({
         ...art,
         cover_image: art.coverImage,
+        views_count: art.viewsCount,
       })),
       last_page: lastPage,
       per_page: perPage,
@@ -95,6 +96,7 @@ export class ArticlesService {
     return {
       ...featured,
       cover_image: featured.coverImage,
+      views_count: featured.viewsCount,
     };
   }
 
@@ -116,9 +118,16 @@ export class ArticlesService {
       throw new NotFoundException('Artigo não encontrado.');
     }
 
+    // Increment views asynchronously
+    await this.prisma.article.update({
+      where: { id: article.id },
+      data: { viewsCount: { increment: 1 } },
+    });
+
     return {
       ...article,
       cover_image: article.coverImage,
+      views_count: article.viewsCount + 1,
     };
   }
 

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { api } from '@/lib/api';
+import { api, Article } from '@/lib/api';
 import ShareButtons from '@/components/ShareButtons';
+import ArticleCard from '@/components/ArticleCard';
 
 interface ArticlePageProps {
   params: {
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     const imageUrl = article.cover_image || '/images/placeholder-game.jpg';
 
     return {
-      title: article.title,
+      title: `${article.title} | Core Loop News`,
       description: article.excerpt,
       openGraph: {
         title: article.title,
@@ -52,10 +53,17 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  let article = null;
+  let article: Article | null = null;
+  let relatedArticles: Article[] = [];
 
   try {
-    article = await api.getArticleBySlug(params.category, params.slug);
+    const [fetchedArticle, categoryArticles] = await Promise.all([
+      api.getArticleBySlug(params.category, params.slug),
+      api.getArticles({ category: params.category, per_page: 4 }).catch(() => ({ data: [] })),
+    ]);
+
+    article = fetchedArticle;
+    relatedArticles = categoryArticles.data.filter((art: any) => art.id !== article?.id).slice(0, 3);
   } catch (error) {
     console.error('Failed to load article:', error);
     notFound();
@@ -73,14 +81,27 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     minute: '2-digit'
   });
 
+  const textLength = (article.content || '').replace(/<[^>]*>/g, '').split(/\s+/).length;
+  const readTimeMinutes = Math.max(1, Math.ceil(textLength / 200));
+
   return (
     <article className="container mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       
       {/* 1. Header Metadata Section */}
       <header className="mb-8">
-        <span className="inline-block rounded bg-rose-600 px-3 py-1.5 text-xs font-black uppercase tracking-widest text-white mb-4">
-          {article.category.name}
-        </span>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="inline-block rounded bg-rose-600 px-3 py-1.5 text-xs font-black uppercase tracking-widest text-white">
+            {article.category.name}
+          </span>
+          <span className="text-xs font-bold text-slate-400 bg-zinc-800/80 px-2.5 py-1 rounded">
+            ⏱️ {readTimeMinutes} min de leitura
+          </span>
+          {typeof article.views_count === 'number' && (
+            <span className="text-xs font-bold text-slate-400 bg-zinc-800/80 px-2.5 py-1 rounded">
+              👁️ {article.views_count} visualizações
+            </span>
+          )}
+        </div>
         
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-4 tracking-tight">
           {article.title}
@@ -130,8 +151,22 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       />
 
       {/* 4. Footer & Social Sharing bar */}
-      <footer className="border-t border-[#1f2833]/40 pt-6">
+      <footer className="border-t border-[#1f2833]/40 pt-6 space-y-12">
         <ShareButtons title={article.title} />
+
+        {/* 5. Related Articles Section ("Leia Também") */}
+        {relatedArticles.length > 0 && (
+          <section className="pt-8 border-t border-[#1f2833]/40">
+            <h3 className="text-xl font-black uppercase text-white tracking-wider mb-6">
+              Leia <span className="text-[#66fcf1]">Também</span>
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {relatedArticles.map((rel: any) => (
+                <ArticleCard key={rel.id} article={rel} />
+              ))}
+            </div>
+          </section>
+        )}
       </footer>
 
     </article>

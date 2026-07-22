@@ -12,7 +12,10 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     year: 'numeric',
   });
 
-  // Default fallback cover image for games theme
+  // Estimate reading time in minutes (approx 200 words per min)
+  const textLength = (article.content || '').replace(/<[^>]*>/g, '').split(/\s+/).length;
+  const readTimeMinutes = Math.max(1, Math.ceil(textLength / 200));
+
   const coverImage = article.cover_image || '/images/placeholder-game.jpg';
 
   return (
@@ -32,14 +35,26 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         <span className="absolute left-4 top-4 rounded bg-rose-600 px-2.5 py-1 text-xs font-black uppercase tracking-wider text-white shadow-lg">
           {article.category.name}
         </span>
+
+        {/* Read Time badge */}
+        <span className="absolute right-4 top-4 rounded bg-black/60 backdrop-blur-md px-2 py-1 text-[10px] font-bold text-slate-300">
+          ⏱️ {readTimeMinutes} min
+        </span>
       </Link>
 
       {/* Card Metadata and Content */}
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
-          <span className="font-semibold text-slate-400">{article.author.name}</span>
-          <span>•</span>
-          <time dateTime={article.published_at}>{publishedDate}</time>
+        <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-400">{article.author.name}</span>
+            <span>•</span>
+            <time dateTime={article.published_at}>{publishedDate}</time>
+          </div>
+          {typeof article.views_count === 'number' && (
+            <span className="text-[11px] text-slate-500">
+              👁️ {article.views_count}
+            </span>
+          )}
         </div>
 
         <h3 className="mb-2 text-lg font-bold leading-snug text-white transition-colors duration-200 group-hover:text-[#66fcf1]">

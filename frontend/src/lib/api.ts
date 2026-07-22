@@ -19,6 +19,7 @@ export interface Article {
   excerpt: string;
   content: string;
   cover_image: string | null;
+  views_count?: number;
   category_id: number;
   author_id: number;
   status: 'draft' | 'published';
