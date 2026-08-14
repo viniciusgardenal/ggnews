@@ -7,16 +7,17 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles, Role } from '../auth/roles.decorator';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(Role.ADMIN, Role.AUTHOR)
 @Controller('admin/categories')
 export class AdminCategoriesController {
   constructor(private categoriesService: CategoriesService) {}
 
+  @Roles(Role.ADMIN, Role.AUTHOR)
   @Get()
   async listAll() {
     return this.categoriesService.findAllWithArticlesCount();
   }
 
+  @Roles(Role.ADMIN)
   @Post()
   async create(@Body() dto: CreateCategoryDto) {
     const category = await this.categoriesService.create(dto);
@@ -26,6 +27,7 @@ export class AdminCategoriesController {
     };
   }
 
+  @Roles(Role.ADMIN)
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -38,6 +40,7 @@ export class AdminCategoriesController {
     };
   }
 
+  @Roles(Role.ADMIN)
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.remove(id);

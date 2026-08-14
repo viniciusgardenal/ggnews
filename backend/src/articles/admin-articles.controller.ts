@@ -42,8 +42,9 @@ export class AdminArticlesController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateArticleDto,
+    @Request() req,
   ) {
-    const article = await this.articlesService.update(id, dto);
+    const article = await this.articlesService.update(id, dto, req.user);
     return {
       message: 'Artigo atualizado com sucesso.',
       article,
@@ -51,7 +52,7 @@ export class AdminArticlesController {
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
-    return this.articlesService.remove(id);
+  async delete(@Param('id', ParseIntPipe) id: number, @Request() req) {
+    return this.articlesService.remove(id, req.user);
   }
 }

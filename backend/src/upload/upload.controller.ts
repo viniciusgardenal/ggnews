@@ -9,12 +9,21 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { extname, join } from 'path';
+import { join } from 'path';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles, Role } from '../auth/roles.decorator';
 import { Request } from 'express';
 import * as fs from 'fs';
+import * as crypto from 'crypto';
+
+const ALLOWED_MIME_MAP: Record<string, string> = {
+  'image/jpeg': '.jpg',
+  'image/jpg': '.jpg',
+  'image/png': '.png',
+  'image/webp': '.webp',
+  'image/gif': '.gif',
+};
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.ADMIN, Role.AUTHOR)
@@ -25,7 +34,6 @@ export class UploadController {
     FileInterceptor('file', {
       storage: diskStorage({
         destination: (req, file, cb) => {
-          // Resolve public/uploads path dynamically
           const uploadPath = join(__dirname, '..', '..', 'public', 'uploads');
           if (!fs.existsSync(uploadPath)) {
             fs.mkdirSync(uploadPath, { recursive: true });
@@ -33,15 +41,18 @@ export class UploadController {
           cb(null, uploadPath);
         },
         filename: (req, file, cb) => {
-          // Generate unique filename with original extension
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          cb(null, `${uniqueSuffix}${extname(file.originalname)}`);
+          // Derive safe extension strictly from verified MIME whitelist
+          const safeExt = ALLOWED_MIME_MAP[file.mimetype] || '.jpg';
+          const randomId = crypto.randomBytes(12).toString('hex');
+          cb(null, `${Date.now()}-${randomId}${safeExt}`);
         },
       }),
       fileFilter: (req, file, cb) => {
-        // Enforce image mime types
-        if (!file.mimetype.match(/\/(jpg|jpeg|png|gif|webp)$/)) {
-          return cb(new BadRequestException('Apenas imagens (jpg, png, gif, webp) são permitidas.'), false);
+        if (!ALLOWED_MIME_MAP[file.mimetype]) {
+          return cb(
+            new BadRequestException('Apenas imagens nos formatos JPG, PNG, WebP e GIF são permitidas.'),
+            false,
+          );
         }
         cb(null, true);
       },
@@ -55,7 +66,6 @@ export class UploadController {
       throw new BadRequestException('Nenhum arquivo enviado ou arquivo inválido.');
     }
 
-    // Generate absolute URL using request host details
     const protocol = req.protocol;
     const host = req.get('host');
     const url = `${protocol}://${host}/uploads/${file.filename}`;

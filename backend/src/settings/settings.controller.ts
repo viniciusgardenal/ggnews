@@ -15,7 +15,7 @@ export class SettingsController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.AUTHOR)
+  @Roles(Role.ADMIN)
   @Put('admin/settings')
   async updateSettings(@Body() dto: UpdateSettingsDto) {
     const settings = await this.settingsService.updateSettings(dto);

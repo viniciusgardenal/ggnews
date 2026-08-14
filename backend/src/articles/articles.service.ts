@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -240,10 +240,15 @@ export class ArticlesService {
     };
   }
 
-  async update(id: number, dto: UpdateArticleDto) {
+  async update(id: number, dto: UpdateArticleDto, user?: { id: number; role: string }) {
     const article = await this.prisma.article.findUnique({ where: { id } });
     if (!article) {
       throw new NotFoundException('Artigo não encontrado.');
+    }
+
+    // Authorization check: Only ADMIN or the article's original author can update
+    if (user && user.role !== 'ADMIN' && article.authorId !== user.id) {
+      throw new ForbiddenException('Você não tem permissão para alterar artigos de outros autores.');
     }
 
     const slug = this.slugify(dto.slug);
@@ -289,10 +294,15 @@ export class ArticlesService {
     };
   }
 
-  async remove(id: number) {
-    const exists = await this.prisma.article.findUnique({ where: { id } });
-    if (!exists) {
+  async remove(id: number, user?: { id: number; role: string }) {
+    const article = await this.prisma.article.findUnique({ where: { id } });
+    if (!article) {
       throw new NotFoundException('Artigo não encontrado.');
+    }
+
+    // Authorization check: Only ADMIN or the article's original author can delete
+    if (user && user.role !== 'ADMIN' && article.authorId !== user.id) {
+      throw new ForbiddenException('Você não tem permissão para excluir artigos de outros autores.');
     }
 
     await this.prisma.article.delete({ where: { id } });

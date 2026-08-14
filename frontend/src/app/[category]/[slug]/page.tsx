@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { api, Article } from '@/lib/api';
 import ShareButtons from '@/components/ShareButtons';
 import ArticleCard from '@/components/ArticleCard';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 interface ArticlePageProps {
   params: {
@@ -144,10 +145,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         />
       </div>
 
-      {/* 3. Article Content (WYSIWYG/Rich Text styling) */}
+      {/* 3. Article Content (WYSIWYG/Rich Text styling with XSS sanitization) */}
       <div 
         className="prose-gamer mb-12"
-        dangerouslySetInnerHTML={{ __html: article.content }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
       />
 
       {/* 4. Footer & Social Sharing bar */}
