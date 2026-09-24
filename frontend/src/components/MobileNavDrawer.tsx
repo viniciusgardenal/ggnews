@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { X, Search, ChevronRight } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
 import { Category } from '@/lib/api';
 
@@ -31,32 +32,37 @@ export default function MobileNavDrawer({
 
   if (!isOpen) return null;
 
+  const validCategories = (categories || []).filter(c => !['hardware', 'tecnologia', 'esports'].includes(c.slug));
+
   return (
-    <div className="fixed inset-0 z-50 md:hidden">
+    <div className="fixed inset-0 z-50 lg:hidden">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
       {/* Drawer Panel */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-white dark:bg-[#0b0c10] border-l border-zinc-200 dark:border-zinc-800 p-6 flex flex-col justify-between shadow-2xl z-10 animate-in slide-in-from-right duration-200">
+      <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-white dark:bg-[#070b14] border-l border-slate-200 dark:border-cyan-500/20 p-6 flex flex-col justify-between shadow-2xl z-10 animate-in slide-in-from-right duration-300">
         
         <div className="space-y-6">
-          {/* Header */}
-          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
-            <span className="text-lg font-black uppercase text-zinc-900 dark:text-white tracking-widest">
-              CORE<span className="text-[#66fcf1]">LOOP</span>
-            </span>
+          {/* Header Branding */}
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/40 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold">
+                N
+              </div>
+              <span className="text-lg font-black uppercase text-slate-900 dark:text-white tracking-wider font-mono">
+                NEXUS
+              </span>
+            </div>
             <button
               onClick={onClose}
               type="button"
-              className="p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
               aria-label="Fechar Menu"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <X className="w-5 h-5" />
             </button>
           </div>
 
@@ -66,54 +72,48 @@ export default function MobileNavDrawer({
               onClose();
               onOpenSearch();
             }}
-            className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider hover:border-[#66fcf1]"
+            className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-black/40 text-xs text-slate-700 dark:text-slate-300 hover:border-cyan-500 transition-all"
           >
-            <span className="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-              </svg>
-              Pesquisar...
+            <span className="flex items-center gap-2 font-medium">
+              <Search className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              Buscar matérias...
             </span>
-            <span className="text-[10px] bg-zinc-200 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-600 dark:text-zinc-400">Buscar</span>
+            <span className="text-[10px] bg-slate-200 dark:bg-black/60 px-2 py-0.5 rounded font-mono font-bold">⌘K</span>
           </button>
 
           {/* Navigation Links */}
-          <nav className="space-y-2">
-            <span className="text-[10px] font-black uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block mb-2">Categorias</span>
+          <nav className="space-y-1">
+            <span className="text-[11px] uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-2 px-3 font-semibold">
+              Categorias
+            </span>
             <Link
               href="/"
               onClick={onClose}
-              className="block px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all"
             >
-              Home
+              <span>Início</span>
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
             </Link>
-            {categories.map((cat) => (
+            {validCategories.map((cat) => (
               <Link
                 key={cat.id}
                 href={`/${cat.slug}`}
                 onClick={onClose}
-                className="block px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all"
               >
-                {cat.name}
+                <span>{cat.name}</span>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
               </Link>
             ))}
           </nav>
         </div>
 
-        {/* Footer controls */}
-        <div className="pt-6 border-t border-zinc-200 dark:border-zinc-800 space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">Tema</span>
+        {/* Footer actions */}
+        <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
+          <div className="flex items-center justify-between px-2">
+            <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Alternar Tema:</span>
             <ThemeToggle />
           </div>
-
-          <Link
-            href="/admin"
-            onClick={onClose}
-            className="w-full py-3 text-center block text-xs font-bold uppercase tracking-wider text-black bg-[#66fcf1] hover:bg-[#45a29e] rounded-xl shadow-md"
-          >
-            Painel Admin
-          </Link>
         </div>
 
       </div>

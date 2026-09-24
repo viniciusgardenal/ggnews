@@ -2,227 +2,507 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* 1. Theme CSS Variable Declarations */
+/* ==========================================================================
+   NEXUS // WIRE - AVANT-GARDE CYBERNETIC DESIGN SYSTEM
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;       /* Pure white */
-  --foreground: #09090b;       /* Zinc-950 deep dark text */
-  --card-bg: #ffffff;
-  --border-color: #e4e4e7;     /* Clean zinc-200 border */
-  --accent: #ff5e00;           /* Vibrant 80s Arcade Orange */
-  --accent-hover: #d03c00;
+  /* ==========================================================================
+     YEAR 2142 SOLARPUNK CITADEL // HIGH-TECH TITANIUM FROST PALETTE
+     Harmonized 1:1 with Dark Mode: rich obsidian text, electric neons, crystal glass
+     ========================================================================== */
+  --background: #f0f4f9;
+  --foreground: #080d1a;
+  --card-bg: rgba(255, 255, 255, 0.94);
+  --card-hover: #ffffff;
+  --border-color: rgba(2, 132, 199, 0.32);
+  --accent: #0284c7;
+  --accent-glow: rgba(2, 132, 199, 0.35);
+  --cyan: #0284c7;
+  --neon-magenta: #d91460;
+  --violet: #7c3aed;
+  --emerald: #059669;
+  --amber: #d97706;
+  --grid-color: rgba(2, 132, 199, 0.07);
 }
 
-/* Dark mode values override (80s Retro Arcade/Terminal Theme) */
 .dark {
-  --background: #121214;       /* Deep warm dark carbon */
-  --foreground: #e4e4e7;       /* Zinc-200 */
-  --card-bg: #1c1c1f;          /* Slightly lighter carbon */
-  --border-color: #2e2e33;     /* Zinc-800 border */
-  --accent: #ff8838;           /* Retro Terminal Amber-Orange */
-  --accent-hover: #e06818;
+  /* ==========================================================================
+     YEAR 2142 NEO-TOKYO CYBERPUNK // DEEP OBSIDIAN VOID PALETTE
+     ========================================================================== */
+  --background: #03060C;
+  --foreground: #e2e8f0;
+  --card-bg: rgba(8, 12, 22, 0.88);
+  --card-hover: rgba(13, 19, 36, 0.95);
+  --border-color: rgba(0, 240, 255, 0.25);
+  --accent: #00f0ff;
+  --accent-glow: rgba(0, 240, 255, 0.45);
+  --cyan: #00f0ff;
+  --neon-magenta: #ff007f;
+  --violet: #a855f7;
+  --emerald: #00ffa3;
+  --amber: #fbbf24;
+  --grid-color: rgba(0, 240, 255, 0.05);
 }
 
-/* 2. Global Styles and Body */
+/* Base Body Styling with Deep Sci-Fi Atmosphere */
 body {
   color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-space-grotesk), 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--background);
+  font-family: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: 
+    radial-gradient(circle at 50% -10%, rgba(2, 132, 199, 0.12), transparent 50%),
+    radial-gradient(circle at 90% 40%, rgba(217, 20, 96, 0.05), transparent 40%),
+    radial-gradient(circle at 10% 80%, rgba(5, 150, 105, 0.05), transparent 45%),
+    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+  background-attachment: fixed;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 3. Helper Overrides for Hardcoded Hex Colors */
-.bg-\[\#0b0c10\] {
-  background-color: var(--background) !important;
-}
-.bg-\[\#07080a\] {
-  background-color: var(--background) !important;
-}
-.bg-\[\#0b0c10\]\/80 {
-  background-color: color-mix(in srgb, var(--background) 80%, transparent) !important;
-}
-.bg-\[\#1f2833\] {
-  background-color: var(--border-color) !important;
+.dark body {
+  background-image: 
+    radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.15), transparent 50%),
+    radial-gradient(circle at 90% 40%, rgba(255, 0, 127, 0.08), transparent 40%),
+    radial-gradient(circle at 10% 80%, rgba(0, 255, 163, 0.07), transparent 45%),
+    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
 }
 
-.border-\[\#1f2833\]\/60,
-.border-\[\#1f2833\]\/40,
-.border-\[\#1f2833\]\/30,
-.border-\[\#1f2833\]\/20,
-.border-\[\#1f2833\] {
-  border-color: var(--border-color) !important;
-}
-
-.text-\[\#c5c6c7\] {
-  color: var(--foreground) !important;
-}
-
-.text-\[\#66fcf1\] {
-  color: var(--accent) !important;
-}
-.hover\:text-\[\#66fcf1\]:hover {
-  color: var(--accent) !important;
-}
-
-.bg-\[\#66fcf1\] {
-  background-color: var(--accent) !important;
-}
-.hover\:bg-\[\#45a29e\]:hover {
-  background-color: var(--accent-hover) !important;
-}
-.group-hover\:text-\[\#66fcf1\]:hover,
-.group:hover .group-hover\:text-\[\#66fcf1\] {
-  color: var(--accent) !important;
-}
-
-.border-\[\#66fcf1\] {
-  border-color: var(--accent) !important;
-}
-.hover\:border-\[\#66fcf1\]:hover {
-  border-color: var(--accent) !important;
-}
-.focus\:border-\[\#66fcf1\]:focus {
-  border-color: var(--accent) !important;
-}
-.focus\:ring-\[\#66fcf1\]:focus {
-  --tw-ring-color: var(--accent) !important;
-}
-.border-\[\#66fcf1\]\/50 {
-  border-color: color-mix(in srgb, var(--accent) 50%, transparent) !important;
-}
-.border-\[\#66fcf1\]\/30 {
-  border-color: color-mix(in srgb, var(--accent) 30%, transparent) !important;
-}
-.border-t-\[\#66fcf1\] {
-  border-top-color: var(--accent) !important;
-}
-.bg-\[\#66fcf1\]\/5 {
-  background-color: color-mix(in srgb, var(--accent) 5%, transparent) !important;
-}
-.bg-\[\#66fcf1\]\/10 {
-  background-color: color-mix(in srgb, var(--accent) 10%, transparent) !important;
-}
-.bg-\[\#66fcf1\]\/20 {
-  background-color: color-mix(in srgb, var(--accent) 20%, transparent) !important;
-}
-.shadow-\[0_0_15px_rgba\(102\,252\,241\,0\.15\)\] {
-  box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 15%, transparent) !important;
-}
-.shadow-\[0_0_15px_rgba\(102\,252\,241\,0\.2\)\] {
-  box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 20%, transparent) !important;
-}
-.hover\:shadow-\[0_0_25px_rgba\(102\,252\,241\,0\.4\)\]:hover {
-  box-shadow: 0 0 25px color-mix(in srgb, var(--accent) 40%, transparent) !important;
-}
-
-/* 4. Cozy Light Mode Text Color Overrides (Standardized Stone/Gray tones) */
-html:not(.dark) .text-slate-300 {
-  color: #d6d3d1 !important; /* stone-300 */
-}
-html:not(.dark) .text-slate-400 {
-  color: #78716c !important; /* stone-600 */
-}
-html:not(.dark) .text-slate-500 {
-  color: #57534e !important; /* stone-700 */
-}
-html:not(.dark) .text-white {
-  color: #1c1917 !important; /* stone-900 */
-}
-html:not(.dark) .hover\:text-white:hover {
-  color: #1c1917 !important;
-}
-
-/* 5. Cozy Light Mode vs Dark Mode Custom Neon Borders */
-.neon-border {
-  border: 1px solid var(--border-color);
-  box-shadow: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.neon-border:hover {
-  border-color: var(--accent);
-  box-shadow: 2px 2px 0px var(--accent); /* Retro hard offset shadow */
-}
-
-.neon-text-cyan,
-.neon-text-orange {
-  text-shadow: none; /* remove glow to keep it professional and sober */
-}
-
-/* Scrollbars */
+/* Sleek Cyber Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--background);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
+  background: rgba(14, 165, 233, 0.4);
+  border-radius: 9999px;
 }
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.4);
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
-/* Rich Text formatting custom support for article content */
-.prose-gamer {
-  font-size: 1.125rem;
+/* ==========================================================================
+   AVANT-GARDE HUD, FLOATING PODS & GEOMETRIC CUTS
+   ========================================================================== */
+
+/* Floating Glass Capsule */
+.floating-glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.06), 0 0 20px rgba(14, 165, 233, 0.12);
+  transition: all 0.3s ease;
+}
+
+.dark .floating-glass {
+  background: rgba(8, 12, 22, 0.88);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.15);
+}
+
+/* Asymmetric Polygon Clip-Paths */
+.clip-hud-corner {
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 20px) 0, 
+    100% 20px, 
+    100% 100%, 
+    20px 100%, 
+    0 calc(100% - 20px)
+  );
+}
+
+.clip-hud-tab {
+  clip-path: polygon(
+    14px 0, 
+    100% 0, 
+    100% calc(100% - 14px), 
+    calc(100% - 14px) 100%, 
+    0 100%, 
+    0 14px
+  );
+}
+
+.clip-chamfer-pill {
+  clip-path: polygon(
+    8px 0, 
+    calc(100% - 8px) 0, 
+    100% 8px, 
+    100% calc(100% - 8px), 
+    calc(100% - 8px) 100%, 
+    8px 100%, 
+    0 calc(100% - 8px), 
+    0 8px
+  );
+}
+
+/* Corner Reticle Brackets (HUD overlay) */
+.hud-frame {
+  position: relative;
+}
+
+.hud-frame::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.hud-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Crosshair Reticle Corner */
+.hud-crosshair {
+  position: relative;
+}
+
+.hud-crosshair::before {
+  content: '+';
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 11px;
+  color: var(--accent);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Glowing Neon Elements */
+.glow-cyan {
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.65);
+}
+
+.glow-violet {
+  text-shadow: 0 0 14px rgba(168, 85, 247, 0.65);
+}
+
+.glow-emerald {
+  text-shadow: 0 0 14px rgba(0, 255, 163, 0.65);
+}
+
+html:not(.dark) .glow-cyan {
+  text-shadow: 0 0 10px rgba(2, 132, 199, 0.35);
+}
+
+html:not(.dark) .glow-violet {
+  text-shadow: 0 0 10px rgba(124, 58, 237, 0.35);
+}
+
+html:not(.dark) .glow-emerald {
+  text-shadow: 0 0 10px rgba(5, 150, 105, 0.35);
+}
+
+/* Live Telemetry Pulse Dot */
+.pulse-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #00ffa3;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #00ffa3;
+  opacity: 0.4;
+  animation: pulseGlow 1.8s infinite cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Laser Sweep Beam on Hover */
+.laser-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.laser-hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(0, 240, 255, 0.2), 
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: all 0.75s ease;
+  pointer-events: none;
+}
+
+.laser-hover:hover::after {
+  left: 200%;
+}
+
+/* Scanline Overlay (Lightweight CSS) */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.3) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+}
+
+/* Rich Content Typography Styling */
+.article-prose {
+  color: var(--foreground);
   line-height: 1.8;
-  color: var(--foreground);
 }
 
-.prose-gamer h1, 
-.prose-gamer h2, 
-.prose-gamer h3 {
-  color: var(--foreground);
-  font-weight: 700;
-  margin-top: 2rem;
+.article-prose h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
   margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.prose-gamer h2 {
-  font-size: 1.75rem;
-  border-left: 4px solid var(--accent);
-  padding-left: 0.75rem;
+html:not(.dark) .article-prose h2 {
+  color: #0f172a;
 }
 
-.prose-gamer p {
+.article-prose h2::before {
+  content: '//';
+  color: var(--accent);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 1rem;
+}
+
+.article-prose p {
+  margin-bottom: 1.25rem;
+  color: #94a3b8;
+  font-size: 1.05rem;
+}
+
+html:not(.dark) .article-prose p {
+  color: #334155;
+}
+
+.article-prose blockquote {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  border-left: 3px solid var(--accent);
+  background: rgba(0, 240, 255, 0.04);
+  border-radius: 0 1rem 1rem 0;
+  font-style: italic;
+  color: #cbd5e1;
+  box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.03);
+}
+
+html:not(.dark) .article-prose blockquote {
+  background: rgba(2, 132, 199, 0.05);
+  color: #1e293b;
+}
+
+.article-prose ul {
+  list-style: none;
+  padding-left: 0;
   margin-bottom: 1.5rem;
 }
 
-.prose-gamer a {
+.article-prose ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #94a3b8;
+}
+
+html:not(.dark) .article-prose ul li {
+  color: #334155;
+}
+
+.article-prose ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
   color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
 
-.prose-gamer a:hover {
-  color: var(--accent-hover);
+/* ==========================================================================
+   YEAR 2142 SKYWAY TRAFFIC, DRONES, NEON BILLBOARDS & LEVITATION
+   ========================================================================== */
+
+/* Clip-path for Vehicle Light Cones (Forward and Reverse) */
+.clip-light-cone {
+  clip-path: polygon(0% 40%, 100% 0%, 100% 100%, 0% 60%);
 }
 
-.prose-gamer blockquote {
-  border-left: 4px solid #f43f5e;
-  background-color: rgba(244, 63, 94, 0.05);
-  padding: 1rem 1.5rem;
-  margin: 1.5rem 0;
-  font-style: italic;
-  color: var(--foreground);
-  opacity: 0.8;
-  border-radius: 0 8px 8px 0;
+.clip-light-cone-rev {
+  clip-path: polygon(100% 40%, 0% 0%, 0% 100%, 100% 60%);
 }
 
-.prose-gamer img {
-  border-radius: 12px;
-  margin: 2rem auto;
-  border: 1px solid var(--border-color);
+.clip-scanner-beam {
+  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
 }
 
-.prose-gamer iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  margin: 2rem 0;
+/* Dual-tone 2142 Neon Glows */
+.neon-text-cyan {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.neon-text-pink {
+  text-shadow: 0 0 10px rgba(255, 0, 127, 0.7), 0 0 20px rgba(255, 0, 127, 0.4);
+}
+
+.neon-border-cyan {
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.35), inset 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.neon-border-pink {
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.35), inset 0 0 10px rgba(255, 0, 127, 0.1);
+}
+
+/* Light Mode Overrides for High-Tech Solarpunk Clarity */
+html:not(.dark) .neon-text-cyan {
+  color: #0284c7;
+  text-shadow: 0 0 12px rgba(2, 132, 199, 0.35);
+}
+
+html:not(.dark) .neon-text-pink {
+  color: #d91460;
+  text-shadow: 0 0 12px rgba(217, 20, 96, 0.35);
+}
+
+html:not(.dark) .neon-border-cyan {
+  box-shadow: 0 0 15px rgba(2, 132, 199, 0.25), inset 0 0 10px rgba(2, 132, 199, 0.08);
+  border-color: rgba(2, 132, 199, 0.4);
+}
+
+html:not(.dark) .neon-border-pink {
+  box-shadow: 0 0 15px rgba(217, 20, 96, 0.25), inset 0 0 10px rgba(217, 20, 96, 0.08);
+  border-color: rgba(217, 20, 96, 0.4);
+}
+
+/* Authentic Neon Flickering */
+@keyframes neonFlicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 15px rgba(255, 0, 127, 0.8));
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.45;
+    filter: none;
+  }
+}
+
+.neon-flicker {
+  animation: neonFlicker 6s infinite ease-in-out;
+}
+
+/* Aerial Vehicles Flying Keyframes */
+@keyframes flyAcrossWestEast {
+  0% {
+    transform: translate3d(-20vw, 0, 0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(120vw, 0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes flyAcrossEastWest {
+  0% {
+    transform: translate3d(120vw, 0, 0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-20vw, 0, 0);
+    opacity: 0;
+  }
+}
+
+/* Autonomous Drone Anti-Gravity Floating */
+@keyframes droneBob {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(4px, -14px, 0) rotate(2deg);
+  }
+  50% {
+    transform: translate3d(-3px, -7px, 0) rotate(-1.5deg);
+  }
+  75% {
+    transform: translate3d(3px, -18px, 0) rotate(1deg);
+  }
+}
+
+.animate-drone-bob {
+  animation: droneBob 6.5s ease-in-out infinite;
+}
+
+/* 3D Asymmetrical Perspective Card Hover */
+.tilt-card-cyber {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.tilt-card-cyber:hover {
+  transform: translateY(-6px) rotateX(2deg) rotateY(-1deg);
 }

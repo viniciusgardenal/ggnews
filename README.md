@@ -1,154 +1,117 @@
-# 🎮 GG News - Portal & Painel Administrativo Gamer
+# ⬡ NEXUS // WIRE - Next-Gen Gaming Intel & Cyber Tech Network
 
-GG News é um portal de notícias, reviews e cobertura de eSports moderno, completo e de alta performance para a comunidade gamer. Desenvolvido com tecnologias modernas, o projeto oferece uma experiência fluida para os leitores e um painel de controle robusto para redatores e administradores gerenciarem o conteúdo em tempo real.
+> **NEXUS // WIRE** é uma plataforma de mídia digital futurista de alta fidelidade para jornalismo gamer, computação neural, hardware quântico e cobertura de eSports de elite.
+
+Inspirado em estéticas de ficção científica cyberpunk, interfaces HUD militares e design system moderno baseado em glassmorphism e iluminação neon, o projeto oferece uma experiência visual imersiva e de altíssima performance para os leitores, aliada a um console de controle administrativo corporativo (**NEXUS // CONSOLE**) para operadores e editores gerenciarem todo o conteúdo em tempo real.
 
 ---
 
-## 🚀 Arquitetura e Tecnologias
+## ⚡ Identidade Visual & Design System Futurista
 
-O ecossistema é dividido em duas aplicações principais que operam de forma integrada:
+*   **Identidade**: `NEXUS // WIRE` (Next-Gen Gaming Intel).
+*   **Abertura & Holograma**: Logotipo em nó hexagonal animado com aperture de pulso quântico.
+*   **Paleta de Cores Cibernética**:
+    *   **Obsidian Void (`#05070E`)**: Fundo escuro profundo com malha vetorial de coordenadas e grid estelar.
+    *   **Electric Cyan (`#00F0FF`)**: Acentos primários de neon com emissão fotônica de 25px de glow.
+    *   **Neural Violet (`#A855F7`)** & **Hyper Emerald (`#00FFA3`)**: Badges de status de telemetria e classificação de canais.
+*   **Tipografia**:
+    *   **Space Grotesk**: Títulos de alto impacto com proporções aerodinâmicas e tracking ajustado.
+    *   **Space Mono**: Telemetria, coordenadas, latência de ping, relógios UTC/BRT e códigos de despacho.
+*   **Microinterações & Componentes HUD**:
+    *   **Marquee Ticker em Tempo Real**: Fita de notícias ao vivo com relógio digital integrado.
+    *   **Hero & Radar Assimétrico**: Palco cinematográfico de destaque com radar lateral das 3 transmissões mais acessadas.
+    *   **Command Palette (`⌘K` / `Ctrl+K`)**: Modal instantâneo de busca rápida por palavras-chave com atalhos de teclado.
+    *   **Cards Holográficos**: Molduras com cantos chanfrados, medidores de tempo de leitura e telemetria de visualizações.
+    *   **Alternador Orbital Solar / Void**: Suporte completo a Modo Escuro Cibernético e Modo Claro de Laboratório Sci-Fi.
 
-### 1. Backend (NestJS API)
-*   **Framework**: [NestJS](https://nestjs.com/) (TypeScript) - Estrutura corporativa, escalável e baseada em injeção de dependência.
-*   **Banco de Dados**: SQLite (ideal para desenvolvimento rápido e facilidade de deploy).
-*   **ORM**: [Prisma ORM](https://www.prisma.io/) - Modelagem de dados segura e geração automática de queries eficientes.
-*   **Autenticação**: Passport.js com estratégias JWT (JSON Web Tokens) e controle de permissões por papéis (RBAC - Admin/Author).
-*   **Validação**: Class-Validator e Class-Transformer para sanitização rigorosa de entradas de dados.
-*   **Uploads**: Interceptação de arquivos via Multer para upload de imagens de capa e logotipo do site de forma local.
+---
 
-### 2. Frontend (Next.js Portal & Admin)
+## 🛠️ Pilha Tecnológica (Stack)
+
+### 1. Frontend (`/frontend`)
 *   **Framework**: [Next.js](https://nextjs.org/) (App Router, React 18, TypeScript).
-*   **Estilização**: Tailwind CSS com sistema de temas dinâmicos via variáveis CSS injetadas.
-*   **Design & Experiência do Usuário (UX)**:
-    *   **Fonte Nunito**: Tipografia arredondada de altíssima legibilidade e visual aconchegante.
-    *   **Cozy Dark Mode**: Modo escuro suave com tons quentes de marrom-café/chocolate (`#181614` e `#23201e`), reduzindo a fadiga visual.
-    *   **Clean Light Mode**: Modo claro moderno em tons neutros de pedra/cinza (`#fafaf9` / Stone-50).
-    *   **Destaque Laranja (Orange Accent)**: Nova cor de destaque vibrante aplicada a botões, links, focos e glows de neon.
-    *   **Design Responsivo**: Otimização completa para dispositivos móveis, tablets e desktops.
+*   **Estilização**: Tailwind CSS 3.4 com extensão de cores cyber e sombras neon customizadas.
+*   **Ícones**: Lucide Icons integrados para consistência de interface de ficção científica.
+*   **Segurança**: Sanitização rigorosa de HTML no cliente para prevenir injeções de script (XSS).
+
+### 2. Backend (`/backend`)
+*   **Framework**: [NestJS](https://nestjs.com/) (TypeScript) - Arquitetura modular corporativa.
+*   **Banco de Dados**: SQLite com [Prisma ORM](https://www.prisma.io/) para integridade transacional.
+*   **Autenticação**: Passport.js com estratégias JWT (JSON Web Tokens) e controle de permissões baseado em papéis (RBAC - Admin/Author).
+*   **Uploads de Mídia**: Interceptação de arquivos via Multer para armazenamento de capas e imagens de alta resolução.
 
 ---
 
-## 🛠️ Funcionalidades do Projeto
+## 🚀 Como Executar Localmente
 
-### 📰 Portal Público
-*   **Home Dinâmica**: Destaque principal para a notícia mais recente (Hero Section) e grid automático de últimas notícias.
-*   **Navegação por Categorias**: Filtro e páginas exclusivas para categorias cadastradas (ex: Reviews, eSports, Lançamentos, Hardware).
-*   **Página de Leitura Imersiva**: Suporte a formatação rica (HTML/Markdown) para exibir títulos, parágrafos, blocos de citação estilizados, imagens e vídeos incorporados do YouTube.
-*   **Compartilhamento**: Botões rápidos para compartilhamento de matérias nas redes sociais.
-*   **SEO Integrado**: Geração dinâmica de tags OpenGraph e Twitter Cards no lado do servidor para indexação perfeita nas redes.
+### Pré-requisitos
+*   **Node.js**: v18.0 ou superior
+*   **npm**: v9.0 ou superior
 
-### 🛡️ Painel Administrativo (`/admin`)
-*   **Autenticação Segura**: Tela de login com sessão armazenada via JWT.
-*   **Dashboard de Métricas**: Painel contendo contador de artigos totais, publicados, rascunhos, categorias criadas e lista rápida de matérias recentes.
-*   **Gerenciador de Artigos (CRUD)**:
-    *   Criação de notícias com geração de slug URL amigável automática a partir do título.
-    *   Editor de conteúdo rico.
-    *   Seleção de categoria dinâmica.
-    *   Controle de status (Rascunho ou Publicado).
-    *   Agendamento de data de publicação futura.
-    *   Upload de imagens de capa via drag-and-drop ou seleção de arquivos.
-*   **Gerenciador de Categorias**: Criação, edição e exclusão de categorias com geração automática de slug.
-*   **Configurações Gerais**: Ajuste de metadados do site (Nome do site, descrição SEO), e-mail de contato, upload do logotipo e controle flexível de links no rodapé e redes sociais.
+### Passo 1: Inicializar o Servidor API (Backend)
+```bash
+cd backend
+npm install
+npm run prisma:generate
+npm run prisma:migrate
+npm run prisma:seed
+npm run start:dev
+```
+*A API estará ativa em: `http://localhost:8000/api/v1`*
 
 ---
 
-## 📁 Estrutura de Pastas
+### Passo 2: Inicializar o Portal & Console (Frontend)
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*O portal público e o painel estarão acessíveis em: `http://localhost:3000`*
+
+---
+
+## 🔑 Credenciais do Console Operacional
+
+Para acessar o **NEXUS // CONSOLE**:
+
+*   **URL de Acesso**: `http://localhost:3000/admin`
+*   **Operador (E-mail)**: `admin@nexuswire.gg` *(ou o alias legado `admin@coreloopnews.com`)*
+*   **Chave de Acesso (Senha)**: `password123`
+
+*(A tela de login possui um botão de 1 clique para auto-preenchimento das credenciais de demonstração).*
+
+---
+
+## 📁 Estrutura de Diretórios
 
 ```text
 ggnews/
-├── backend/               # Código do servidor NestJS
-│   ├── prisma/            # Schema, migrations e seeds do banco de dados
-│   │   ├── dev.db         # Banco de dados SQLite local
-│   │   ├── schema.prisma  # Definição das tabelas
-│   │   └── seed.ts        # Dados demonstrativos (GTA V, Elden Ring, Worlds...)
-│   └── src/               # Módulos principais (auth, articles, categories, settings...)
-└── frontend/              # Código da aplicação Next.js
-    ├── public/            # Favicon, assets públicos e imagens
+├── backend/
+│   ├── prisma/
+│   │   ├── dev.db         # Banco de dados SQLite local com dados de telemetria
+│   │   ├── schema.prisma  # Esquema relacional Prisma (Users, Categories, Articles, Settings)
+│   │   └── seed.ts        # Seed com dados futuristas do NEXUS // WIRE
+│   └── src/               # Módulos NestJS (auth, articles, categories, settings, upload)
+└── frontend/
     ├── src/
-    │   ├── app/           # Rotas do App Router (Portal, Categoria, Slug e Admin)
-    │   ├── components/    # Componentes reutilizáveis (Header, Footer, ArticleCard...)
-    │   └── lib/           # Cliente HTTP da API (api.ts) e interfaces
-    └── tailwind.config.js # Configuração do Tailwind CSS
+    │   ├── app/           # Rotas do Next.js App Router (Portal, Canais, Artigos e Console Admin)
+    │   ├── components/    # Componentes HUD (Header, Footer, BreakingTicker, ArticleCard, SearchModal)
+    │   └── lib/           # Cliente de API e funções utilitárias de formatação
+    └── tailwind.config.js # Paleta cyber, sombras neon e animações de marquee
 ```
 
 ---
 
-## 🚀 Como Executar o Projeto Localmente
+## 🌐 Endpoints da API
 
-Certifique-se de ter o **Node.js (v18 ou superior)** instalado em sua máquina.
-
-### Passo 1: Inicializar o Backend
-Abra um terminal no diretório `/backend`:
-
-1.  **Instalar dependências**:
-    ```bash
-    npm install
-    ```
-2.  **Gerar o Prisma Client**:
-    ```bash
-    npx prisma generate
-    ```
-3.  **Executar Migrations e criar o Banco de Dados SQLite**:
-    ```bash
-    npx prisma migrate dev --name init
-    ```
-4.  **Popular o banco com os dados de demonstração (Seed)**:
-    ```bash
-    npx prisma db seed
-    ```
-5.  **Iniciar a API de Desenvolvimento**:
-    ```bash
-    npm run start:dev
-    ```
-    *A API estará acessível em: `http://localhost:8000/api/v1`*
-
----
-
-### Passo 2: Inicializar o Frontend
-Abra um segundo terminal no diretório `/frontend`:
-
-1.  **Instalar dependências**:
-    ```bash
-    npm install
-    ```
-2.  **Configurar variáveis de ambiente**:
-    Certifique-se de que há um arquivo `.env.local` na raiz da pasta `/frontend` (se necessário, crie-o com base no `.env.example`):
-    ```env
-    NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
-    NEXT_PUBLIC_SITE_URL=http://localhost:3000
-    ```
-3.  **Iniciar o Servidor Next.js**:
-    ```bash
-    npm run dev
-    ```
-    *O portal e o painel estarão acessíveis em: `http://localhost:3000`*
-
----
-
-## 🔑 Credenciais do Painel de Testes
-
-Para acessar a área administrativa e gerenciar os artigos e categorias:
-
-*   **URL de Acesso**: `http://localhost:3000/admin`
-*   **E-mail de Login**: `admin@ggnews.com`
-*   **Senha padrão**: `password123`
-
-*(As credenciais de teste já vêm pré-carregadas na tela de login da aplicação para facilitar a validação).*
-
----
-
-## 🔗 Principais Endpoints da API
-
-*   **Públicos**:
-    *   `GET /api/v1/articles` - Listar artigos publicados.
-    *   `GET /api/v1/articles/featured` - Obter artigo em destaque.
-    *   `GET /api/v1/articles/:categorySlug/:slug` - Visualizar artigo completo.
-    *   `GET /api/v1/categories` - Listar categorias ativas.
-    *   `GET /api/v1/settings` - Obter metadados do site.
-*   **Privados (Requer Bearer Token no cabeçalho Authorization)**:
-    *   `POST /api/v1/admin/login` - Autenticar usuário.
-    *   `GET /api/v1/admin/dashboard` - Estatísticas rápidas do sistema.
-    *   `GET/POST/PUT/DELETE /api/v1/admin/articles` - CRUD de artigos.
-    *   `GET/POST/PUT/DELETE /api/v1/admin/categories` - CRUD de categorias.
-    *   `PUT /api/v1/admin/settings` - Atualizar configurações.
-    *   `POST /api/v1/admin/upload` - Enviar imagem de capa/logotipo.
+*   `GET /api/v1/articles` - Listar artigos publicados com filtros de pesquisa e canal.
+*   `GET /api/v1/articles/featured` - Obter a matéria em destaque principal do radar.
+*   `GET /api/v1/articles/:categorySlug/:slug` - Visualizar despacho completo do artigo.
+*   `GET /api/v1/categories` - Listar canais ativos e contagem de transmissões.
+*   `GET /api/v1/settings` - Obter configurações globais e metadados do kernel.
+*   `POST /api/v1/admin/login` - Autenticar operador e emitir JWT.
+*   `GET /api/v1/admin/dashboard` - Telemetria em tempo real do sistema.
+*   `CRUD /api/v1/admin/articles` - Gerenciamento completo de transmissões.
+*   `CRUD /api/v1/admin/categories` - Gerenciamento de canais e taxonomias.
+*   `PUT /api/v1/admin/settings` - Atualização de metadados do portal.

@@ -17,10 +17,10 @@ export default function AdminPage() {
   }, [router]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0b0c10] text-[#66fcf1]">
+    <div className="flex min-h-screen items-center justify-center bg-slate-100 dark:bg-[#05070e] text-cyan-600 dark:text-cyan-400">
       <div className="flex flex-col items-center gap-3">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#1f2833] border-t-[#66fcf1]" />
-        <span className="text-xs font-bold uppercase tracking-widest">Carregando Sessão...</span>
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-300 dark:border-slate-800 border-t-cyan-500 dark:border-t-cyan-400" />
+        <span className="text-xs font-mono font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Carregando Sessão...</span>
       </div>
     </div>
   );

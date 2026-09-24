@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Search, Menu } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
 import SearchModal from '@/components/SearchModal';
 import MobileNavDrawer from '@/components/MobileNavDrawer';
@@ -15,40 +16,46 @@ export default function HeaderActions({ categories }: HeaderActionsProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  // Global Ctrl+K / Cmd+K shortcut listener to toggle search modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <>
-      <div className="flex items-center gap-3">
-        {/* Search Trigger Button */}
+      <div className="flex items-center gap-2 sm:gap-3">
+        {/* Search Trigger with Hotkey Badge */}
         <button
           onClick={() => setSearchOpen(true)}
           type="button"
-          className="p-2 text-slate-400 hover:text-white transition-colors"
-          aria-label="Abrir Pesquisa"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-cyan-500/10 border border-slate-300/80 dark:border-slate-700/60 hover:border-cyan-500/50 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all duration-200"
+          aria-label="Pesquisar notícias"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
+          <Search className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <span className="hidden xl:inline text-xs font-medium">Buscar...</span>
+          <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono font-semibold text-slate-500 dark:text-slate-400 bg-white dark:bg-black/40 border border-slate-200 dark:border-slate-700 rounded">
+            ⌘K
+          </kbd>
         </button>
 
+        {/* Theme Toggle */}
         <ThemeToggle />
-
-        <Link
-          href="/admin"
-          className="relative hidden sm:inline-flex items-center justify-center px-5 py-2 text-xs font-bold uppercase tracking-wider text-black bg-[#66fcf1] hover:bg-[#45a29e] rounded transition-all duration-200 shadow-[0_0_15px_rgba(102,252,241,0.2)] hover:shadow-[0_0_25px_rgba(102,252,241,0.4)]"
-        >
-          Admin Panel
-        </Link>
         
         {/* Mobile Menu Trigger */}
         <button 
           onClick={() => setDrawerOpen(true)}
           type="button" 
-          className="p-2 text-slate-400 hover:text-white md:hidden"
-          aria-label="Abrir Menu"
+          className="p-2 text-slate-700 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg lg:hidden transition-colors"
+          aria-label="Abrir Menu de Navegação"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
+          <Menu className="w-5 h-5" />
         </button>
       </div>
 

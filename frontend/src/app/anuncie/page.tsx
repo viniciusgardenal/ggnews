@@ -1,88 +1,98 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { ArrowRight, ChevronRight, Layers, Megaphone, CheckCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Anuncie Conosco | Core Loop News',
-  description: 'Conecte sua marca aos jogadores e entusiastas de tecnologia com o Core Loop News. Conheça nossos formatos de anúncio e Mídia Kit.',
+  title: 'Anuncie Conosco | NEXUS',
+  description: 'Conecte sua marca a milhares de apaixonados por jogos, videogames e consoles.',
 };
 
 export default function AdvertisePage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 space-y-12">
+    <div className="container mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8 space-y-10 font-sans">
       
       {/* Header section */}
-      <header className="border-b border-zinc-200 dark:border-zinc-800 pb-6">
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-2 font-bold uppercase tracking-wider">
-          <Link href="/" className="hover:text-[var(--accent)] transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-slate-400">Publicidade</span>
+      <header className="p-8 sm:p-10 rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14] space-y-4 relative overflow-hidden shadow-sm">
+        <div className="flex items-center gap-2 text-xs text-slate-500">
+          <Link href="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Início</Link>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+          <span className="text-slate-900 dark:text-white font-medium">Anuncie</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black uppercase text-zinc-900 dark:text-white tracking-wider">
-          Anuncie no <span className="text-[#ea580c] dark:text-[#ff8838]">Core Loop</span>
+
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-black font-bold text-xs uppercase tracking-wider shadow-sm">
+          <Megaphone className="w-3.5 h-3.5" />
+          <span>Mídia & Parcerias</span>
+        </div>
+
+        <h1 className="text-3xl sm:text-4xl font-extrabold uppercase text-slate-900 dark:text-white tracking-tight">
+          Anuncie no NEXUS
         </h1>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
-          Conecte sua marca diretamente a uma audiência qualificada e engajada com o universo dos games e eSports.
+
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+          Apresente seus lançamentos, jogos ou serviços diretamente para um público altamente engajado e apaixonado por videogames e entretenimento digital.
         </p>
       </header>
 
       {/* Metrics Highlights */}
       <section className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 text-center space-y-2 shadow-sm">
-          <span className="text-3xl font-black text-[#ea580c] dark:text-[#ff8838]">100%</span>
-          <h4 className="text-xs font-black uppercase tracking-wider text-zinc-900 dark:text-white">Público Gamer</h4>
-          <p className="text-xs text-zinc-500">Leitores apaixonados por lançamentos, consoles, hardware e competições.</p>
+        <div className="rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14] p-6 text-center space-y-2 shadow-sm">
+          <span className="text-3xl font-extrabold text-cyan-600 dark:text-cyan-400">100%</span>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Público Gamer</h4>
+          <p className="text-xs text-slate-600 dark:text-slate-400">Jogadores ativos de PlayStation, Xbox, Nintendo e PC.</p>
         </div>
 
-        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 text-center space-y-2 shadow-sm">
-          <span className="text-3xl font-black text-[#ea580c] dark:text-[#ff8838]">Display & Branded</span>
-          <h4 className="text-xs font-black uppercase tracking-wider text-zinc-900 dark:text-white">Formatos Variados</h4>
-          <p className="text-xs text-zinc-500">Banners responsivos, matérias patrocinadas (publieditoriais) e patrocínio de categorias.</p>
+        <div className="rounded-2xl border border-slate-200 dark:border-purple-500/20 bg-white dark:bg-[#070b14] p-6 text-center space-y-2 shadow-sm">
+          <span className="text-3xl font-extrabold text-purple-600 dark:text-purple-400">45k+</span>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Leituras Mensais</h4>
+          <p className="text-xs text-slate-600 dark:text-slate-400">Alcance orgânico com matérias diárias e alto engajamento da comunidade.</p>
         </div>
 
-        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 text-center space-y-2 shadow-sm">
-          <span className="text-3xl font-black text-[#ea580c] dark:text-[#ff8838]">Multiplataforma</span>
-          <h4 className="text-xs font-black uppercase tracking-wider text-zinc-900 dark:text-white">Alcance Integrado</h4>
-          <p className="text-xs text-zinc-500">Presença no portal web, newsletter e redes sociais do ecossistema CLN.</p>
+        <div className="rounded-2xl border border-slate-200 dark:border-emerald-500/20 bg-white dark:bg-[#070b14] p-6 text-center space-y-2 shadow-sm">
+          <span className="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">Design</span>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Limpo e Sem Poluição</h4>
+          <p className="text-xs text-slate-600 dark:text-slate-400">Integração visual elegante com a experiência do leitor sem anúncios intrusivos.</p>
         </div>
       </section>
 
       {/* Formats Section */}
       <section className="space-y-6">
-        <h2 className="text-xl font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
-          Formatos de <span className="text-[#ea580c] dark:text-[#ff8838]">Parceria</span>
+        <h2 className="text-xl font-bold uppercase tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+          <Layers className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+          <span>Formatos de Parceria</span>
         </h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
-          <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-3 shadow-sm">
-            <h3 className="text-sm font-black uppercase text-zinc-900 dark:text-white">📰 Publieditoriais & Análises</h3>
-            <p className="text-zinc-500 leading-relaxed">
-              Cobertura aprofundada de produtos, jogos ou periféricos desenvolvida pelo nosso time editorial com sinalização transparente de conteúdo patrocinado.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#070b14] p-6 space-y-3 shadow-sm">
+            <h3 className="text-sm font-bold uppercase text-cyan-600 dark:text-cyan-400">Conteúdo Patrocinado & Reviews</h3>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Apresentação detalhada do seu produto, jogo ou acessório com cobertura aprofundada feita pela nossa equipe editorial.
             </p>
           </div>
 
-          <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-3 shadow-sm">
-            <h3 className="text-sm font-black uppercase text-zinc-900 dark:text-white">🎯 Banners de Destaque</h3>
-            <p className="text-zinc-500 leading-relaxed">
-              Posições de alto impacto no Top Leaderboard, entre os artigos da página inicial e na barra lateral de matérias.
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#070b14] p-6 space-y-3 shadow-sm">
+            <h3 className="text-sm font-bold uppercase text-purple-600 dark:text-purple-400">Patrocínio de Categorias</h3>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Destaque especial da sua marca em seções específicas do portal, como PlayStation, Xbox, Nintendo ou PC Gaming.
             </p>
           </div>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#0b0c10] p-8 text-center space-y-4 shadow-sm">
-        <h3 className="text-lg font-black uppercase text-zinc-900 dark:text-white tracking-wider">
-          Pronto para anunciar com o Core Loop News?
+      <section className="rounded-2xl border border-slate-200 dark:border-cyan-500/30 bg-slate-50 dark:bg-black/50 p-8 sm:p-10 text-center space-y-4 shadow-sm">
+        <h3 className="text-xl font-bold uppercase text-slate-900 dark:text-white tracking-tight">
+          Quer divulgar seu projeto no NEXUS?
         </h3>
-        <p className="text-xs text-zinc-500 max-w-xl mx-auto">
-          Solicite nosso Mídia Kit atualizado com tabelas de formatos e valores comerciais diretamente com nosso time.
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
+          Entre em contato com nossa equipe comercial para receber nossa proposta com formatos e condições personalizadas.
         </p>
-        <div>
+        <div className="pt-2">
           <Link
             href="/contato"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#ea580c] dark:bg-[#ff8838] hover:bg-[#c2410c] dark:hover:bg-[#e06818] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-all"
+            className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-black shadow-sm transition-all"
           >
-            Falar com a Equipe Comercial →
+            <span>Falar com a Equipe Comercial</span>
+            <ArrowRight className="w-4 h-4 text-black" />
           </Link>
         </div>
       </section>

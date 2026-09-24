@@ -36,20 +36,23 @@ export class SettingsService {
     }, {} as { [key: string]: string | null });
 
     return {
-      site_name: settingsMap['site_name'] || 'Core Loop News',
+      site_name: settingsMap['site_name'] || 'NEXUS',
       site_description:
-        settingsMap['site_description'] || 'O seu portal definitivo de notícias gamer.',
+        settingsMap['site_description'] || 'O seu portal definitivo sobre games, consoles, análises e lançamentos do universo dos videogames.',
       logo_url: settingsMap['logo_url'] || null,
-      contact_email: settingsMap['contact_email'] || 'contato@coreloopnews.com',
+      contact_email: settingsMap['contact_email'] || 'contato@nexus.gg',
       footer_links: this.parseSettingValue(settingsMap['footer_links'], [
         { title: 'Sobre Nós', url: '/sobre' },
-        { title: 'Contato', url: '/contato' },
+        { title: 'Fale Conosco', url: '/contato' },
+        { title: 'Anuncie Conosco', url: '/anuncie' },
+        { title: 'Política de Privacidade', url: '/politica-de-privacidade' },
         { title: 'Termos de Uso', url: '/termos' },
       ]),
       social_links: this.parseSettingValue(settingsMap['social_links'], [
-        { platform: 'twitter', url: 'https://twitter.com' },
-        { platform: 'youtube', url: 'https://youtube.com' },
-        { platform: 'instagram', url: 'https://instagram.com' },
+        { platform: 'twitter', url: 'https://x.com/nexuswire' },
+        { platform: 'youtube', url: 'https://youtube.com/nexuswire' },
+        { platform: 'instagram', url: 'https://instagram.com/nexuswire' },
+        { platform: 'discord', url: 'https://discord.gg/nexuswire' },
       ]),
     };
   }

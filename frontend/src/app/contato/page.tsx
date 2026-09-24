@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Send, Mail, CheckCircle2, ChevronRight, MessageSquare, Clock } from 'lucide-react';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -16,19 +17,27 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 space-y-10">
+    <div className="container mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8 space-y-10 font-sans">
       
-      <header className="border-b border-zinc-200 dark:border-zinc-800 pb-6">
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-2 font-bold uppercase tracking-wider">
-          <Link href="/" className="hover:text-[var(--accent)] transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-slate-400">Contato</span>
+      {/* Header */}
+      <header className="p-8 sm:p-10 rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14] space-y-4 relative overflow-hidden shadow-sm">
+        <div className="flex items-center gap-2 text-xs text-slate-500">
+          <Link href="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Início</Link>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+          <span className="text-slate-900 dark:text-white font-medium">Contato</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black uppercase text-zinc-900 dark:text-white tracking-wider">
-          Fale <span className="text-[#ea580c] dark:text-[#ff8838]">Conosco</span>
+
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-black font-bold text-xs uppercase tracking-wider shadow-sm">
+          <MessageSquare className="w-3.5 h-3.5" />
+          <span>Fale Conosco</span>
+        </div>
+
+        <h1 className="text-3xl sm:text-4xl font-extrabold uppercase text-slate-900 dark:text-white tracking-tight">
+          Entre em Contato
         </h1>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
-          Dúvidas, sugestões de pauta, parcerias ou anúncios? Mande uma mensagem para nossa equipe.
+
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+          Tem alguma dúvida, sugestão de pauta, crítica ou proposta de parceria? Envie sua mensagem para a equipe do NEXUS.
         </p>
       </header>
 
@@ -37,11 +46,13 @@ export default function ContactPage() {
         {/* Form Column */}
         <div className="lg:col-span-8">
           {submitted ? (
-            <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-950/30 p-8 text-center space-y-3 shadow-sm">
-              <div className="text-3xl">✅</div>
-              <h3 className="text-lg font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider">Mensagem Enviada com Sucesso!</h3>
-              <p className="text-xs text-emerald-700 dark:text-emerald-300">
-                Obrigado pelo contato, {name}. Responderemos o mais breve possível no e-mail <strong>{email}</strong>.
+            <div className="rounded-2xl border border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/20 p-8 text-center space-y-4 shadow-sm">
+              <CheckCircle2 className="w-12 h-12 text-emerald-500 dark:text-emerald-400 mx-auto" />
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white uppercase tracking-tight">
+                Mensagem Enviada com Sucesso!
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
+                Obrigado pelo contato, <strong>{name}</strong>. Responderemos para o e-mail <strong>{email}</strong> o mais rápido possível.
               </p>
               <button
                 type="button"
@@ -52,66 +63,75 @@ export default function ContactPage() {
                   setSubject('');
                   setMessage('');
                 }}
-                className="mt-4 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
+                className="mt-4 px-6 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-black font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
               >
-                Enviar Nova Mensagem
+                Enviar Outra Mensagem
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 sm:p-8 space-y-6 shadow-sm">
-              <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">Nome Completo</label>
+            <form onSubmit={handleSubmit} className="rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14] p-6 sm:p-8 space-y-5 shadow-sm">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                  Seu Nome
+                </label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Seu nome..."
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                  placeholder="Digite seu nome completo..."
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-black/40 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:border-cyan-500 focus:outline-none transition-all"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">E-mail de Contato</label>
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                  Seu E-mail
+                </label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="seuemail@exemplo.com"
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                  placeholder="seu-email@exemplo.com"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-black/40 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:border-cyan-500 focus:outline-none transition-all"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">Assunto</label>
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                  Assunto
+                </label>
                 <input
                   type="text"
                   required
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  placeholder="Sugestão de Pauta, Anúncios, Dúvida..."
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                  placeholder="Sugestão de pauta, dúvida, parceria..."
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-black/40 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:border-cyan-500 focus:outline-none transition-all"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">Mensagem</label>
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                  Mensagem
+                </label>
                 <textarea
                   required
                   rows={5}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Escreva sua mensagem aqui..."
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                  placeholder="Escreva sua mensagem detalhadamente..."
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-black/40 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:border-cyan-500 focus:outline-none transition-all"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-4 text-xs font-bold uppercase tracking-wider text-white bg-[#ea580c] dark:bg-[#ff8838] hover:bg-[#c2410c] dark:hover:bg-[#e06818] rounded-xl transition-all shadow-md"
+                className="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all"
               >
-                Enviar Mensagem
+                <Send className="w-4 h-4 text-black" />
+                <span>Enviar Mensagem</span>
               </button>
             </form>
           )}
@@ -119,14 +139,23 @@ export default function ContactPage() {
 
         {/* Sidebar Info */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-black uppercase tracking-wider text-zinc-900 dark:text-white">📧 E-mail Direto</h3>
-            <p className="text-xs text-zinc-500">contato@coreloopnews.com</p>
-          </div>
+          <div className="rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14] p-6 space-y-4 shadow-sm">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
+              <Mail className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <span>Canais de Atendimento</span>
+            </h3>
 
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-black uppercase tracking-wider text-zinc-900 dark:text-white">📍 Localização</h3>
-            <p className="text-xs text-zinc-500">São Paulo, SP — Brasil</p>
+            <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <span className="text-[10px] text-slate-500 uppercase block font-medium">E-mail da Redação</span>
+                <span className="text-cyan-600 dark:text-cyan-400 font-semibold">contato@nexus.com.br</span>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <span className="text-[10px] text-slate-500 uppercase block font-medium">Tempo Médio de Resposta</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Em até 24 horas úteis</span>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -2,6 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import { api, SiteSettings, FooterLink, SocialLink } from '@/lib/api';
+import { 
+  Sliders, 
+  Save, 
+  Plus, 
+  Trash2, 
+  Upload, 
+  Loader2, 
+  CheckCircle2, 
+  Globe, 
+  Share2, 
+  Terminal,
+  ShieldCheck
+} from 'lucide-react';
 
 export default function AdminSettingsPage() {
   const [siteName, setSiteName] = useState('');
@@ -21,7 +34,6 @@ export default function AdminSettingsPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch global configs
     api.getSettings()
       .then((settings) => {
         setSiteName(settings.site_name);
@@ -31,7 +43,7 @@ export default function AdminSettingsPage() {
         setFooterLinks(settings.footer_links || []);
         setSocialLinks(settings.social_links || []);
       })
-      .catch((err) => setError(err.message || 'Erro ao carregar configurações.'))
+      .catch((err) => setError(err.message || 'Erro ao carregar configurações do site.'))
       .finally(() => setLoading(false));
   }, []);
 
@@ -46,13 +58,12 @@ export default function AdminSettingsPage() {
       const res = await api.admin.uploadImage(files[0]);
       setLogoUrl(res.url);
     } catch (err: any) {
-      setError(err.message || 'Erro ao enviar logo.');
+      setError(err.message || 'Erro ao enviar logotipo.');
     } finally {
       setUploading(false);
     }
   };
 
-  // Footer Repeaters Helpers
   const addFooterLink = () => {
     setFooterLinks([...footerLinks, { title: '', url: '' }]);
   };
@@ -71,7 +82,6 @@ export default function AdminSettingsPage() {
     setFooterLinks(footerLinks.filter((_, i) => i !== index));
   };
 
-  // Social Repeaters Helpers
   const addSocialLink = () => {
     setSocialLinks([...socialLinks, { platform: '', url: '' }]);
   };
@@ -110,7 +120,7 @@ export default function AdminSettingsPage() {
       setSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: any) {
-      setError(err.message || 'Erro ao salvar configurações.');
+      setError(err.message || 'Erro ao persistir configurações no banco de dados.');
     } finally {
       setSaving(false);
     }
@@ -118,28 +128,40 @@ export default function AdminSettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex h-64 items-center justify-center text-slate-500 text-sm font-bold uppercase tracking-widest">
-        Carregando configurações...
+      <div className="flex h-64 items-center justify-center text-cyan-600 dark:text-cyan-400 font-mono text-xs uppercase tracking-widest">
+        <div className="flex items-center gap-3">
+          <Loader2 className="w-5 h-5 animate-spin text-cyan-600 dark:text-cyan-400" />
+          <span>CARREGANDO CONFIGURAÇÕES...</span>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 font-sans">
       
-      <div>
-        <h1 className="text-xl font-bold uppercase text-zinc-900 dark:text-white tracking-wider">Configurações Gerais</h1>
-        <p className="text-xs text-slate-500 mt-1">Ajuste a identidade visual, logo, redes sociais e rodapé do site.</p>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-cyan-500/20 pb-6">
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono text-cyan-600 dark:text-cyan-400 mb-1">
+            <Terminal className="w-3.5 h-3.5" />
+            <span>CONFIGURAÇÕES DO PORTAL</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black uppercase text-slate-900 dark:text-white font-mono tracking-tight">
+            Configurações Gerais
+          </h1>
+        </div>
       </div>
 
       {success && (
-        <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 p-4 text-sm text-emerald-700 dark:text-emerald-400">
-          Configurações salvas e aplicadas com sucesso!
+        <div className="rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/40 p-4 text-xs font-mono text-emerald-800 dark:text-emerald-300 flex items-center gap-2.5">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <span>CONFIGURAÇÕES ATUALIZADAS COM SUCESSO!</span>
         </div>
       )}
 
       {error && (
-        <div className="rounded-lg bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 p-4 text-sm text-rose-700 dark:text-rose-400">
+        <div className="rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-500/40 p-4 text-xs font-mono text-rose-800 dark:text-rose-300">
           {error}
         </div>
       )}
@@ -147,48 +169,61 @@ export default function AdminSettingsPage() {
       <form onSubmit={handleSubmit} className="space-y-8">
         
         {/* Identidade Visual */}
-        <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-6 shadow-sm">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-850 dark:text-white border-b border-zinc-200 dark:border-zinc-800 pb-3">Identidade Visual</h3>
+        <section className="rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14]/90 p-6 sm:p-8 space-y-6 shadow-sm dark:shadow-2xl backdrop-blur-md">
+          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-cyan-500/20 pb-3">
+            <Globe className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+              IDENTIDADE VISUAL E SEO
+            </h3>
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-2">Nome do Site</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Nome do Site
+              </label>
               <input
                 type="text"
                 required
                 value={siteName}
                 onChange={(e) => setSiteName(e.target.value)}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-2.5 text-xs font-mono text-slate-900 dark:text-white focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-2">E-mail de Contato</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                E-mail de Contato Principal
+              </label>
               <input
                 type="email"
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-2.5 text-xs font-mono text-slate-900 dark:text-white focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
               />
             </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-2">Descrição do Portal (SEO)</label>
+            <div className="md:col-span-2 space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Descrição do Portal (Meta Tags & SEO)
+              </label>
               <textarea
                 required
                 value={siteDescription}
                 onChange={(e) => setSiteDescription(e.target.value)}
                 rows={2}
                 maxLength={500}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-2.5 text-xs font-mono text-slate-900 dark:text-slate-300 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
               />
             </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-2">Logo do Site</label>
+            <div className="md:col-span-2 space-y-2">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Logotipo do Site
+              </label>
               {logoUrl && (
-                <div className="mb-3 h-12 relative flex items-center">
-                  <img src={logoUrl} alt="Logo preview" className="h-full object-contain bg-zinc-100 dark:bg-slate-900/60 p-2 rounded border border-zinc-200 dark:border-zinc-800" />
+                <div className="mb-3 h-12 flex items-center">
+                  <img src={logoUrl} alt="Logo preview" className="h-full object-contain bg-slate-100 dark:bg-black/60 p-2 rounded-lg border border-slate-300 dark:border-slate-700" />
                 </div>
               )}
               <div className="flex gap-4">
@@ -202,128 +237,130 @@ export default function AdminSettingsPage() {
                 />
                 <label
                   htmlFor="logo-upload"
-                  className="py-2.5 px-4 border border-dashed border-zinc-200 dark:border-zinc-700 hover:border-[#66fcf1] hover:text-[#66fcf1] rounded text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider cursor-pointer transition-colors"
+                  className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-400 bg-slate-100 dark:bg-white/5 text-xs font-mono font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-300 uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-all"
                 >
-                  {uploading ? 'Enviando...' : 'Carregar Nova Logo'}
+                  <Upload className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                  <span>{uploading ? 'ENVIANDO...' : 'CARREGAR NOVO LOGOTIPO'}</span>
                 </label>
-                <input
-                  type="text"
-                  value={logoUrl}
-                  onChange={(e) => setLogoUrl(e.target.value)}
-                  placeholder="URL direta para a logo..."
-                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
-                />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Footer Link Repeater */}
-        <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-4 shadow-sm">
-          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-850 dark:text-white">Links do Rodapé</h3>
+        {/* Links do Rodapé */}
+        <section className="rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14]/90 p-6 sm:p-8 space-y-6 shadow-sm dark:shadow-2xl backdrop-blur-md">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-cyan-500/20 pb-3">
+            <div className="flex items-center gap-2">
+              <Sliders className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                LINKS DO RODAPÉ
+              </h3>
+            </div>
             <button
               type="button"
               onClick={addFooterLink}
-              className="text-xs font-bold uppercase tracking-wider text-[#66fcf1] hover:underline"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 dark:bg-cyan-400 dark:hover:bg-cyan-300 text-white dark:text-black font-mono font-bold text-xs uppercase tracking-wider"
             >
-              + Adicionar Link
+              <Plus className="w-3.5 h-3.5" />
+              <span>ADICIONAR LINK</span>
             </button>
           </div>
 
           <div className="space-y-3">
             {footerLinks.map((link, idx) => (
-              <div key={idx} className="flex items-center gap-3">
+              <div key={idx} className="flex gap-3 items-center">
                 <input
                   type="text"
-                  required
-                  placeholder="Título do Link (ex: Sobre Nós)"
+                  placeholder="Título (ex: Sobre Nós)"
                   value={link.title}
                   onChange={(e) => updateFooterLink(idx, 'title', e.target.value)}
-                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="flex-1 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-2 text-xs font-mono text-slate-900 dark:text-white focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none"
                 />
                 <input
                   type="text"
-                  required
-                  placeholder="Caminho/URL (ex: /sobre)"
+                  placeholder="URL (ex: /sobre)"
                   value={link.url}
                   onChange={(e) => updateFooterLink(idx, 'url', e.target.value)}
-                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="flex-1 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-2 text-xs font-mono text-cyan-700 dark:text-cyan-300 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => removeFooterLink(idx)}
-                  className="p-2 text-rose-500 hover:bg-rose-950/20 rounded transition-colors"
+                  className="p-2 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-11.5 0M9 8.25v10.5m6-10.5v10.5M5.25 5.25h13.5" />
-                  </svg>
+                  <Trash2 className="w-4 h-4" />
                 </button>
               </div>
             ))}
-            {footerLinks.length === 0 && (
-              <p className="text-xs text-slate-500 text-center py-4">Nenhum link adicionado ao rodapé.</p>
-            )}
           </div>
         </section>
 
-        {/* Social Link Repeater */}
-        <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-4 shadow-sm">
-          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-850 dark:text-white">Canais e Redes Sociais</h3>
+        {/* Redes Sociais */}
+        <section className="rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14]/90 p-6 sm:p-8 space-y-6 shadow-sm dark:shadow-2xl backdrop-blur-md">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-cyan-500/20 pb-3">
+            <div className="flex items-center gap-2">
+              <Share2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                REDES SOCIAIS
+              </h3>
+            </div>
             <button
               type="button"
               onClick={addSocialLink}
-              className="text-xs font-bold uppercase tracking-wider text-[#66fcf1] hover:underline"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 dark:bg-cyan-400 dark:hover:bg-cyan-300 text-white dark:text-black font-mono font-bold text-xs uppercase tracking-wider"
             >
-              + Adicionar Rede
+              <Plus className="w-3.5 h-3.5" />
+              <span>ADICIONAR REDE</span>
             </button>
           </div>
 
           <div className="space-y-3">
             {socialLinks.map((social, idx) => (
-              <div key={idx} className="flex items-center gap-3">
+              <div key={idx} className="flex gap-3 items-center">
                 <input
                   type="text"
-                  required
-                  placeholder="Plataforma (ex: twitter, youtube)"
+                  placeholder="Plataforma (ex: twitter, discord, youtube)"
                   value={social.platform}
                   onChange={(e) => updateSocialLink(idx, 'platform', e.target.value)}
-                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="w-1/3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-2 text-xs font-mono text-slate-900 dark:text-white focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none"
                 />
                 <input
-                  type="url"
-                  required
-                  placeholder="URL Completa (ex: https://youtube.com/...)"
+                  type="text"
+                  placeholder="URL Completa (ex: https://x.com/nexuswire)"
                   value={social.url}
                   onChange={(e) => updateSocialLink(idx, 'url', e.target.value)}
-                  className="flex-1 rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                  className="flex-1 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-2 text-xs font-mono text-cyan-700 dark:text-cyan-300 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => removeSocialLink(idx)}
-                  className="p-2 text-rose-500 hover:bg-rose-950/20 rounded transition-colors"
+                  className="p-2 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-11.5 0M9 8.25v10.5m6-10.5v10.5M5.25 5.25h13.5" />
-                  </svg>
+                  <Trash2 className="w-4 h-4" />
                 </button>
               </div>
             ))}
-            {socialLinks.length === 0 && (
-              <p className="text-xs text-slate-500 text-center py-4">Nenhuma rede social vinculada.</p>
-            )}
           </div>
         </section>
 
-        {/* Submit Bar */}
-        <div className="flex justify-end gap-4">
+        {/* Submit Button */}
+        <div className="flex justify-end pt-4">
           <button
             type="submit"
-            disabled={saving || uploading}
-            className="px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white bg-[#ea580c] dark:bg-[#ff8838] hover:bg-[#c2410c] dark:hover:bg-[#e06818] rounded transition-all disabled:opacity-50 shadow-sm"
+            disabled={saving}
+            className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 dark:bg-cyan-400 dark:hover:bg-cyan-300 text-white dark:text-black font-mono font-bold text-xs uppercase tracking-wider shadow-md dark:shadow-[0_0_25px_rgba(0,240,255,0.4)] disabled:opacity-50 transition-all"
           >
-            {saving ? 'Salvando...' : 'Salvar Alterações'}
+            {saving ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-white dark:text-black" />
+                <span>SALVANDO CONFIGURAÇÕES...</span>
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4 text-white dark:text-black" />
+                <span>SALVAR ALTERAÇÕES</span>
+              </>
+            )}
           </button>
         </div>
 

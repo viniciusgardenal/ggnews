@@ -4,6 +4,20 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api, Category } from '@/lib/api';
+import { 
+  FileText, 
+  Terminal, 
+  Upload, 
+  Image as ImageIcon, 
+  Video, 
+  Heading, 
+  Quote, 
+  Type, 
+  Save, 
+  X, 
+  Loader2,
+  ChevronRight 
+} from 'lucide-react';
 
 export default function CreateArticlePage() {
   const router = useRouter();
@@ -25,7 +39,6 @@ export default function CreateArticlePage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Populate categories
     api.admin.getCategories()
       .then((res) => {
         setCategories(res);
@@ -34,11 +47,9 @@ export default function CreateArticlePage() {
       .catch((err) => console.error(err));
   }, []);
 
-  // Handle auto-slug creation reactive logic
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setTitle(val);
-    // Convert to URL friendly slug
     const formattedSlug = val
       .toLowerCase()
       .trim()
@@ -59,7 +70,7 @@ export default function CreateArticlePage() {
       const res = await api.admin.uploadImage(files[0]);
       setCoverImageUrl(res.url);
     } catch (err: any) {
-      setError(err.message || 'Erro ao enviar imagem de capa.');
+      setError(err.message || 'Erro ao carregar arquivo de imagem.');
     } finally {
       setUploading(false);
     }
@@ -85,28 +96,36 @@ export default function CreateArticlePage() {
       await api.admin.createArticle(payload);
       router.push('/admin/articles');
     } catch (err: any) {
-      setError(err.message || 'Erro ao criar artigo.');
+      setError(err.message || 'Erro ao registrar nova matéria no sistema.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 font-sans">
       
       {/* Navigation Breadcrumb */}
-      <div className="flex items-center gap-2 text-xs text-slate-500 font-bold uppercase tracking-wider">
-        <Link href="/admin/articles" className="hover:text-[var(--accent)] transition-colors">Artigos</Link>
-        <span>/</span>
-        <span className="text-slate-400">Criar Novo</span>
+      <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
+        <Link href="/admin/articles" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">ARTIGOS</Link>
+        <ChevronRight className="w-3 h-3 text-slate-400 dark:text-slate-600" />
+        <span className="text-cyan-600 dark:text-cyan-400">NOVO ARTIGO</span>
       </div>
 
-      <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
-        <h1 className="text-xl font-bold uppercase text-zinc-900 dark:text-white tracking-wider">Nova Notícia</h1>
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-cyan-500/20 pb-4">
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono text-cyan-600 dark:text-cyan-400 mb-1">
+            <Terminal className="w-3.5 h-3.5" />
+            <span>EDITOR DE CONTEÚDO</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black uppercase text-slate-900 dark:text-white font-mono tracking-tight">
+            Criar Novo Artigo
+          </h1>
+        </div>
       </div>
 
       {error && (
-        <div className="rounded-lg bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 p-4 text-sm text-rose-700 dark:text-rose-400">
+        <div className="rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-500/40 p-4 text-xs font-mono text-rose-700 dark:text-rose-300">
           {error}
         </div>
       )}
@@ -115,78 +134,86 @@ export default function CreateArticlePage() {
         
         {/* Main Column */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-6 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14]/90 p-6 sm:p-8 space-y-6 shadow-sm dark:shadow-2xl backdrop-blur-md">
             
             {/* Title */}
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400 mb-2">Título</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Título do Artigo
+              </label>
               <input
                 type="text"
                 required
                 value={title}
                 onChange={handleTitleChange}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-650 focus:border-[#66fcf1] focus:outline-none"
-                placeholder="Ex: Novo Jogo de RPG é Revelado com Trailer de Gameplay"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 font-sans focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
+                placeholder="Ex: Novo Motor Gráfico Desbloqueia Fotorrealismo em Tempo Real"
               />
             </div>
 
             {/* Slug */}
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400 mb-2">Slug da URL</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Slug da URL (Identificador Único)
+              </label>
               <input
                 type="text"
                 required
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-650 focus:border-[#66fcf1] focus:outline-none"
-                placeholder="novo-jogo-de-rpg-revelado"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-3 text-xs font-mono text-cyan-700 dark:text-cyan-300 placeholder-slate-400 dark:placeholder-slate-600 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
+                placeholder="novo-motor-grafico-fotorrealismo"
               />
             </div>
 
             {/* Excerpt */}
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400 mb-2">Resumo (Excerpt)</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Resumo do Artigo
+              </label>
               <textarea
                 required
                 value={excerpt}
                 onChange={(e) => setExcerpt(e.target.value)}
                 rows={3}
                 maxLength={500}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-650 focus:border-[#66fcf1] focus:outline-none"
-                placeholder="Breve resumo da matéria que aparece na Home. Máximo 500 caracteres."
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-3 text-sm text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 font-sans focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
+                placeholder="Breve resumo da matéria que será exibido nos cards e na página inicial..."
               />
             </div>
 
-            {/* Content (Markup supported with Live Preview & Helper Toolbar) */}
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400">Conteúdo do Artigo (Rich HTML/Markdown)</label>
+            {/* Content Toolbar and Editor */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                  Corpo do Artigo (Markup / HTML Suportado)
+                </label>
                 
-                {/* Quick Helper Toolbar */}
-                <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+                {/* Fast Injection Toolbar */}
+                <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono">
                   <button
                     type="button"
-                    onClick={() => setContent((prev) => prev + '\n<h2>Subtítulo Aqui</h2>\n')}
-                    className="px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold"
-                    title="Inserir Subtítulo"
+                    onClick={() => setContent((prev) => prev + '\n<h2>Subtítulo de Seção</h2>\n')}
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors"
                   >
-                    + H2
+                    <Heading className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
+                    <span>+ H2</span>
                   </button>
                   <button
                     type="button"
-                    onClick={() => setContent((prev) => prev + '\n<p>Texto do seu parágrafo aqui...</p>\n')}
-                    className="px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold"
-                    title="Inserir Parágrafo"
+                    onClick={() => setContent((prev) => prev + '\n<p>Insira a descrição detalhada aqui...</p>\n')}
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors"
                   >
-                    + Parágrafo
+                    <Type className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
+                    <span>+ Parágrafo</span>
                   </button>
                   <button
                     type="button"
-                    onClick={() => setContent((prev) => prev + '\n<blockquote>"Sua citação marcante aqui"</blockquote>\n')}
-                    className="px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold"
-                    title="Inserir Citação"
+                    onClick={() => setContent((prev) => prev + '\n<blockquote>"Declaração verificada em destaque"</blockquote>\n')}
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors"
                   >
-                    + Citação
+                    <Quote className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
+                    <span>+ Citação</span>
                   </button>
                   <button
                     type="button"
@@ -194,13 +221,13 @@ export default function CreateArticlePage() {
                       const url = prompt('URL do Vídeo do YouTube (ex: https://www.youtube.com/watch?v=VIDEO_ID):');
                       if (url) {
                         const videoId = url.includes('v=') ? url.split('v=')[1]?.split('&')[0] : url.split('/').pop();
-                        setContent((prev) => prev + `\n<div class="video-container"><iframe src="https://www.youtube.com/embed/${videoId}" title="Vídeo YouTube" frameborder="0" allowfullscreen></iframe></div>\n`);
+                        setContent((prev) => prev + `\n<div class="video-container my-6 rounded-xl overflow-hidden border border-cyan-500/20"><iframe src="https://www.youtube.com/embed/${videoId}" class="w-full aspect-video" title="Vídeo Incorporado" frameborder="0" allowfullscreen></iframe></div>\n`);
                       }
                     }}
-                    className="px-2 py-1 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 font-bold hover:bg-rose-200"
-                    title="Inserir Vídeo do YouTube"
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-500/10 hover:bg-rose-100 dark:hover:bg-rose-500/20 border border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-300 transition-colors"
                   >
-                    + Vídeo YouTube
+                    <Video className="w-3 h-3 text-rose-500 dark:text-rose-400" />
+                    <span>+ Vídeo</span>
                   </button>
                 </div>
               </div>
@@ -209,13 +236,10 @@ export default function CreateArticlePage() {
                 required
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                rows={12}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-650 font-mono focus:border-[#66fcf1] focus:outline-none"
-                placeholder="<h2>Subtítulo aqui</h2><p>Texto do parágrafo...</p>"
+                rows={14}
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-3 text-sm text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 font-mono focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
+                placeholder="<h2>Subtítulo da Matéria</h2><p>Texto detalhado da matéria...</p>"
               />
-              <span className="text-[10px] text-slate-500 block mt-2 uppercase tracking-wide">
-                Suporta HTML e Markdown. Utilize os botões acima para rápida formatação.
-              </span>
             </div>
 
           </div>
@@ -223,15 +247,17 @@ export default function CreateArticlePage() {
 
         {/* Sidebar Column */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0b0c10] p-6 space-y-6 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 dark:border-cyan-500/20 bg-white dark:bg-[#070b14]/90 p-6 space-y-6 shadow-sm dark:shadow-2xl backdrop-blur-md">
             
             {/* Category selection */}
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400 mb-2">Categoria</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Categoria
+              </label>
               <select
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-3 text-xs font-mono text-slate-900 dark:text-cyan-300 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
               >
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>{cat.name}</option>
@@ -240,35 +266,41 @@ export default function CreateArticlePage() {
             </div>
 
             {/* Status selection */}
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400 mb-2">Status de Publicação</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Status
+              </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as 'draft' | 'published')}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-3 text-xs font-mono text-slate-900 dark:text-slate-200 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
               >
                 <option value="draft">Rascunho</option>
-                <option value="published">Publicar Imediatamente</option>
+                <option value="published">Publicado</option>
               </select>
             </div>
 
             {/* Date scheduling */}
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400 mb-2">Agendar Publicação</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Data e Horário de Publicação
+              </label>
               <input
                 type="datetime-local"
                 value={publishedAt}
                 onChange={(e) => setPublishedAt(e.target.value)}
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-xs text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-3 text-xs font-mono text-slate-900 dark:text-slate-200 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all"
               />
             </div>
 
             {/* Cover image uploader */}
-            <div>
-              <label className="block text-xs font-black uppercase tracking-wider text-slate-550 dark:text-slate-400 mb-2">Imagem de Capa</label>
+            <div className="space-y-2">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Imagem de Capa
+              </label>
               
               {coverImageUrl && (
-                <div className="relative aspect-video w-full overflow-hidden rounded border border-zinc-200 dark:border-zinc-800 mb-3">
+                <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-cyan-500/30 mb-3 bg-slate-100 dark:bg-black">
                   <img src={coverImageUrl} alt="Preview da capa" className="h-full w-full object-cover" />
                 </div>
               )}
@@ -283,34 +315,54 @@ export default function CreateArticlePage() {
               />
               <label
                 htmlFor="cover-upload"
-                className="w-full py-3 border border-dashed border-zinc-200 dark:border-zinc-700 hover:border-[#66fcf1] hover:text-[#66fcf1] rounded text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                className="w-full py-3.5 border border-dashed border-slate-300 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 rounded-xl text-xs font-mono font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all bg-slate-50 dark:bg-black/40"
               >
-                {uploading ? 'Enviando Imagem...' : 'Carregar Imagem'}
+                {uploading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-cyan-600 dark:text-cyan-400" />
+                    <span>ENVIANDO ARQUIVO...</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <span>CARREGAR IMAGEM</span>
+                  </>
+                )}
               </label>
 
               <input
                 type="text"
                 value={coverImageUrl}
                 onChange={(e) => setCoverImageUrl(e.target.value)}
-                placeholder="Ou digite a URL da imagem de capa..."
-                className="w-full rounded border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-2.5 text-[10px] text-zinc-900 dark:text-white focus:border-[#66fcf1] focus:outline-none mt-3"
+                placeholder="Ou cole a URL direta da imagem..."
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black/60 px-4 py-2.5 text-xs font-mono text-slate-900 dark:text-slate-300 focus:border-cyan-500 dark:focus:border-cyan-400 focus:outline-none mt-2"
               />
             </div>
 
             {/* Actions Submit */}
-            <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex gap-3">
+            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex gap-3">
               <button
                 type="submit"
                 disabled={loading || uploading}
-                className="flex-1 py-3 text-xs font-bold uppercase tracking-wider text-white bg-[#ea580c] dark:bg-[#ff8838] hover:bg-[#c2410c] dark:hover:bg-[#e06818] rounded transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 py-3.5 text-xs font-mono font-bold uppercase tracking-wider text-white dark:text-black bg-cyan-500 hover:bg-cyan-400 dark:bg-cyan-400 dark:hover:bg-cyan-300 rounded-xl transition-all shadow-md dark:shadow-[0_0_20px_rgba(0,240,255,0.4)] disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                {loading ? 'Salvando...' : 'Salvar Notícia'}
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-white dark:text-black" />
+                    <span>SALVANDO...</span>
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-4 h-4 text-white dark:text-black" />
+                    <span>SALVAR ARTIGO</span>
+                  </>
+                )}
               </button>
               <Link
                 href="/admin/articles"
-                className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white border border-zinc-200 dark:border-zinc-700 hover:border-zinc-350 dark:hover:border-zinc-650 rounded transition-colors text-center"
+                className="py-3.5 px-4 text-xs font-mono font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 rounded-xl transition-colors text-center"
               >
-                Cancelar
+                CANCELAR
               </Link>
             </div>
 
